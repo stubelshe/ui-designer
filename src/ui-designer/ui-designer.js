@@ -9,41 +9,60 @@ import './ui-designer.scss';
 
 const buttons = [{text: 'Edit'}, {text: 'Test'}];
 
-function getComponent(name) {
-  switch (name) {
+function getComponent(props) {
+  switch (props.componentName) {
     case 'Clock':
-      return <Clock />;
+      return <Clock {...props} />;
     case 'Date':
-      return <Date />;
+      return <Date {...props} />;
     default:
   }
 }
 
 export default () => {
   const context = useContext(EasyContext);
-  const {components, selectedComponent} = context;
-  console.log('ui-designer.js: components =', components);
+  const {nextComponentId, propsMap, selectedComponent} = context;
+  console.log('ui-designer.js: propsMap =', propsMap);
 
-  const addComponent = () => {
-    const index = components.length;
-    const container = (
-      <div
-        className="container"
-        key={'c' + index}
-        onClick={() => toggleSelected(index)}
-      >
-        {getComponent(selectedComponent)}
-      </div>
+  const addComponent = async () => {
+    console.log(
+      'ui-designer.js addComponent: nextComponentId =',
+      nextComponentId
     );
-    context.push('components', container);
+    const id = nextComponentId;
+    await context.increment('nextComponentId');
+    const props = {componentName: selectedComponent, id};
+    const newPropsMap = {...propsMap, [id]: props};
+    context.set('propsMap', newPropsMap);
   };
 
-  const toggleSelected = index => {
-    console.log('ui-designer.js toggleSelected: index =', index);
-    console.log('ui-designer.js toggleSelected: components =', components);
-    const component = components[index];
-    console.log('ui-designer.js toggleSelected: component =', component);
-    //component.selected = !component.selected;
+  const getComponents = propsMap => {
+    const ids = Object.keys(propsMap);
+    return ids.map(id => {
+      const props = propsMap[id];
+      const component = getComponent(props);
+      if (!component) return null;
+      return (
+        <div
+          className="container"
+          key={'c' + id}
+          onClick={() => toggleSelected(id)}
+        >
+          {component}
+        </div>
+      );
+    });
+  };
+
+  const toggleSelected = id => {
+    console.log('ui-designer.js toggleSelected: id =', id);
+    const props = propsMap[id];
+    const newPropsMap = {
+      ...propsMap,
+      [id]: {...props, selected: !props.selected}
+    };
+    context.set('propsMap', newPropsMap);
+    console.log('ui-designer.js toggleSelected: newPropsMap =', newPropsMap);
   };
 
   return (
@@ -65,7 +84,7 @@ export default () => {
           Add
         </button>
       </section>
-      <section className="component-display">{components}</section>
+      <section className="component-display">{getComponents(propsMap)}</section>
       <footer />
     </div>
   );
