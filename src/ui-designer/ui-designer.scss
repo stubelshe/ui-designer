@@ -33,7 +33,11 @@
       display: inline-block;
       margin: $spacing;
       padding: $spacing;
-      outline: solid red 2px;
+      outline: solid red 3px;
     }
+  }
+
+  .container.selected {
+    outline-color: green;
   }
 }

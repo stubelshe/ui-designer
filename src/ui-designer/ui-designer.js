@@ -22,13 +22,8 @@ function getComponent(props) {
 export default () => {
   const context = useContext(EasyContext);
   const {nextComponentId, propsMap, selectedComponent} = context;
-  console.log('ui-designer.js: propsMap =', propsMap);
 
   const addComponent = async () => {
-    console.log(
-      'ui-designer.js addComponent: nextComponentId =',
-      nextComponentId
-    );
     const id = nextComponentId;
     await context.increment('nextComponentId');
     const props = {componentName: selectedComponent, id};
@@ -42,9 +37,10 @@ export default () => {
       const props = propsMap[id];
       const component = getComponent(props);
       if (!component) return null;
+      const className = 'container' + (props.selected ? ' selected' : '');
       return (
         <div
-          className="container"
+          className={className}
           key={'c' + id}
           onClick={() => toggleSelected(id)}
         >
@@ -55,14 +51,12 @@ export default () => {
   };
 
   const toggleSelected = id => {
-    console.log('ui-designer.js toggleSelected: id =', id);
     const props = propsMap[id];
     const newPropsMap = {
       ...propsMap,
       [id]: {...props, selected: !props.selected}
     };
     context.set('propsMap', newPropsMap);
-    console.log('ui-designer.js toggleSelected: newPropsMap =', newPropsMap);
   };
 
   return (
