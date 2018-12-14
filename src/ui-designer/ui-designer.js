@@ -38,7 +38,10 @@ export default () => {
     <div className="ui-designer">
       <header>
         <h2>UI Designer</h2>
-        <ToggleButtons buttons={buttons} />
+        <div>
+          <label>Mode</label>
+          <ToggleButtons buttons={buttons} />
+        </div>
         <Select path="selectedComponent">
           <option value="" />
           <option value="Clock">Clock</option>
