@@ -1,0 +1,10 @@
+.toggle-buttons {
+  button {
+    background-color: white;
+    color: black;
+  }
+
+  button.selected {
+    background-color: lightgreen;
+  }
+}

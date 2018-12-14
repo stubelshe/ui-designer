@@ -1,0 +1,15 @@
+button {
+  border-radius: 4px;
+  font-weight: bold;
+  margin-left: 10px;
+  padding: 10px;
+
+  &:disabled {
+    background-color: red;
+    color: white;
+  }
+}
+
+select {
+  padding: 5px; // doesn't work
+}
