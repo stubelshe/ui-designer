@@ -1,0 +1,39 @@
+@import '../share.scss';
+
+.ui-designer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+
+  header {
+    border-bottom: solid gray 3px;
+    padding: 0 $spacing $spacing $spacing;
+
+    h2 {
+      margin-top: $spacing;
+    }
+  }
+
+  .component-select {
+    background-color: lightblue;
+    padding: $spacing;
+
+    select {
+      font-size: 18px;
+    }
+  }
+
+  .component-display {
+    background-color: linen;
+    flex-grow: 1;
+    padding: $spacing;
+
+    & > * {
+      display: inline-block;
+      margin: $spacing;
+      padding: $spacing;
+      outline: solid red 2px;
+    }
+  }
+}

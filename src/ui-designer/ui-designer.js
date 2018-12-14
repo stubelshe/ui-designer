@@ -5,6 +5,8 @@ import Clock from '../clock/clock';
 import Date from '../date/date';
 import ToggleButtons from '../toggle-buttons/toggle-buttons';
 
+import './ui-designer.scss';
+
 const buttons = [{text: 'Edit'}, {text: 'Test'}];
 
 let componentId = 0;
@@ -42,6 +44,8 @@ export default () => {
           <label>Mode</label>
           <ToggleButtons buttons={buttons} />
         </div>
+      </header>
+      <section className="component-select">
         <Select path="selectedComponent">
           <option value="" />
           <option value="Clock">Clock</option>
@@ -50,8 +54,8 @@ export default () => {
         <button disabled={!selectedComponent} onClick={addComponent}>
           Add
         </button>
-      </header>
-      <section>{components}</section>
+      </section>
+      <section className="component-display">{components}</section>
       <footer />
     </div>
   );
