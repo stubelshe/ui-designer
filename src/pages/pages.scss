@@ -1,0 +1,25 @@
+.pages {
+  padding: 10px;
+
+  .delete-btn {
+    border: none;
+    color: red;
+  }
+
+  .new-page {
+    margin-bottom: 10px;
+  }
+
+  .page {
+    border-top: solid lightgray 1px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    padding-top: 5px;
+
+    &.selected {
+      color: green;
+      font-weight: bold;
+    }
+  }
+}

@@ -6,9 +6,12 @@ import './App.scss';
 const initialState = {
   mode: 'edit', // or 'test'
   nextComponentId: 0,
+  pageName: '',
+  pages: {},
   propsMap: {},
   selectedComponentId: 0,
-  selectedComponentName: ''
+  selectedComponentName: '',
+  selectedPage: ''
 };
 
 class App extends Component {

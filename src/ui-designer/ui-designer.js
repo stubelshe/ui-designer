@@ -3,6 +3,7 @@ import React, {useContext} from 'react';
 
 import Clock, {config as clockConfig} from '../clock/clock';
 import Date, {config as dateConfig} from '../date/date';
+import Pages from '../pages/pages';
 import PropEditor from '../prop-editor/prop-editor';
 import ToggleButtons from '../toggle-buttons/toggle-buttons';
 
@@ -108,6 +109,7 @@ export default () => {
         </button>
       </section>
       <section className="main">
+        <Pages />
         <section className="component-display">
           {getComponents(propsMap)}
         </section>
