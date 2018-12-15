@@ -19,6 +19,7 @@ function configRow(context, component, key, props) {
       input = <input type="checkbox" onChange={handleChange} checked={value} />;
       break;
     case 'color':
+      // type="color" is not supported in IE or iOS Safari!
       input = <input type="color" onChange={handleChange} value={value} />;
       break;
     case 'fontFamily':

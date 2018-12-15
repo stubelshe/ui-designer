@@ -31,6 +31,7 @@ export default props => {
   const year = date.getFullYear();
 
   return (
+    // Non-style props are ignored by the style attribute.
     <div className="date" style={props}>
       {month}/{day}/{year}
     </div>
