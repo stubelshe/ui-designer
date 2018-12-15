@@ -32,7 +32,8 @@ export default () => {
     nextComponentId,
     propsMap,
     selectedComponentName,
-    selectedComponentId
+    selectedComponentId,
+    selectedPage
   } = context;
 
   const selectedComponent = propsMap[selectedComponentId];
@@ -46,7 +47,8 @@ export default () => {
 
     const props = {
       componentId,
-      componentName: selectedComponentName
+      componentName: selectedComponentName,
+      page: selectedPage
     };
     const config = configMap[selectedComponentName];
     Object.keys(config).forEach(key => {
@@ -59,7 +61,11 @@ export default () => {
   };
 
   const getComponents = propsMap => {
-    const componentIds = Object.keys(propsMap);
+    // Get an array of component ids on the selected page.
+    const componentIds = Object.keys(propsMap).filter(
+      id => propsMap[id].page === selectedPage
+    );
+
     return componentIds.map(componentId => {
       const props = propsMap[componentId];
       const component = getComponent(props);

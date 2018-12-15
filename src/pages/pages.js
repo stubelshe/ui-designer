@@ -11,12 +11,33 @@ export default () => {
   const pageNames = Object.keys(pages).sort();
 
   const addPage = async () => {
-    const page = {name: pageName};
-    await context.transform('pages', pages => ({...pages, [pageName]: page}));
+    // Add a new page.
+    const newPage = {name: pageName};
+    await context.transform('pages', pages => ({
+      ...pages,
+      [pageName]: newPage
+    }));
+
     context.set('pageName', '');
   };
 
-  const deletePage = name => {
+  const deletePage = async name => {
+    // Delete all the components on the page.
+    await context.transform('propsMap', propsMap => {
+      console.log('pages.js deletePage: propsMap =', propsMap);
+      const ids = Object.keys(propsMap);
+      console.log('pages.js deletePage: ids =', ids);
+      return ids.reduce((map, id) => {
+        console.log('pages.js deletePage: id =', id);
+        const props = propsMap[id];
+        console.log('pages.js deletePage: props =', props);
+        // Keep components not on the page being deleted.
+        if (props.page !== name) map[id] = props;
+        return map;
+      }, {});
+    });
+
+    // Delete the page.
     context.delete('pages.' + name);
   };
 
@@ -35,8 +56,11 @@ export default () => {
           </button>
         </form>
       </div>
-      {pageNames.map(name => (
-        <div className={'page ' + (name === selectedPage ? ' selected' : '')}>
+      {pageNames.map((name, index) => (
+        <div
+          className={'page ' + (name === selectedPage ? ' selected' : '')}
+          key={'page' + index}
+        >
           <span onClick={() => selectPage(name)}>{name}</span>
           <button className="delete-btn" onClick={() => deletePage(name)}>
             X
