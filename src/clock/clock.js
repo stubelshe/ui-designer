@@ -4,6 +4,32 @@ function padNumber(n) {
   return n.toString().padStart(2, '0');
 }
 
+export const config = {
+  backgroundColor: {
+    type: 'color',
+    default: 'gray'
+  },
+  color: {
+    type: 'color',
+    default: 'red'
+  },
+  fontFamily: {
+    type: 'fontFamily',
+    default: 'sans-serif'
+  },
+  fontSize: {
+    type: 'fontSize',
+    default: 18
+  },
+  hours24: {
+    type: 'boolean'
+  },
+  showSeconds: {
+    type: 'boolean',
+    default: true
+  }
+};
+
 export default () => {
   const [, refresh] = useState();
 

@@ -1,0 +1,15 @@
+.prop-editor {
+  background-color: pink;
+  padding: 10px;
+  //width: 200px;
+
+  label {
+    margin-right: 10px;
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    height: 36px;
+  }
+}

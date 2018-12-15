@@ -40,4 +40,9 @@
   .container.selected {
     outline-color: green;
   }
+
+  .main {
+    display: flex;
+    flex-grow: 1;
+  }
 }

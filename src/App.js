@@ -7,7 +7,8 @@ const initialState = {
   mode: 'edit', // or 'test'
   nextComponentId: 0,
   propsMap: {},
-  selectedComponent: ''
+  selectedComponentId: 0,
+  selectedComponentName: ''
 };
 
 class App extends Component {
