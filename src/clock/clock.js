@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import './clock.scss';
 
 function padNumber(n) {
   return n.toString().padStart(2, '0');
@@ -7,30 +8,31 @@ function padNumber(n) {
 export const config = {
   backgroundColor: {
     type: 'color',
-    default: 'gray'
+    defaultValue: '#BBBBBB'
   },
   color: {
     type: 'color',
-    default: 'red'
+    defaultValue: '#0000FF'
   },
   fontFamily: {
     type: 'fontFamily',
-    default: 'sans-serif'
+    defaultValue: 'sans-serif'
   },
   fontSize: {
     type: 'fontSize',
-    default: 18
+    defaultValue: 18
   },
   hours24: {
-    type: 'boolean'
+    type: 'boolean',
+    defaultValue: false
   },
   showSeconds: {
     type: 'boolean',
-    default: true
+    defaultValue: true
   }
 };
 
-export default () => {
+export default props => {
   const [, refresh] = useState();
 
   useEffect(() => {
@@ -39,16 +41,19 @@ export default () => {
   }, []);
 
   const date = new Date();
-  const hours = date.getHours();
+  let hours = date.getHours();
   const amPm = hours >= 12 ? 'PM' : 'AM';
+  if (!props.hours24) hours %= 12;
   const minutes = padNumber(date.getMinutes());
-  const seconds = padNumber(date.getSeconds());
+  let time = hours + ':' + minutes;
+
+  if (props.showSeconds) time += ':' + padNumber(date.getSeconds());
+
+  time += ' ' + amPm;
 
   return (
-    <div className="clock">
-      <span>
-        {hours % 12}:{minutes}:{seconds} {amPm}
-      </span>
+    <div className="clock" style={props}>
+      {time}
     </div>
   );
 };

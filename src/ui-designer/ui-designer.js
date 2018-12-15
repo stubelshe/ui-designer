@@ -42,10 +42,17 @@ export default () => {
   const addComponent = async () => {
     const componentId = nextComponentId;
     await context.increment('nextComponentId');
+
     const props = {
       componentId,
       componentName: selectedComponentName
     };
+    const config = configMap[selectedComponentName];
+    Object.keys(config).forEach(key => {
+      const {defaultValue} = config[key];
+      if (defaultValue) props[key] = defaultValue;
+    });
+
     const newPropsMap = {...propsMap, [componentId]: props};
     context.set('propsMap', newPropsMap);
   };
@@ -56,6 +63,7 @@ export default () => {
       const props = propsMap[componentId];
       const component = getComponent(props);
       if (!component) return null;
+
       const className = 'container' + (props.selected ? ' selected' : '');
       return (
         <div

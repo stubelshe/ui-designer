@@ -1,39 +1,38 @@
 import React from 'react';
+import './date.scss';
 
 export const config = {
   backgroundColor: {
     type: 'color',
-    default: 'white'
+    defaultValue: 'white'
   },
   color: {
     type: 'color',
-    default: 'black'
+    defaultValue: 'black'
   },
   fontFamily: {
     type: 'string', //TODO: multiple-choice?
-    default: 'sans-serif'
+    defaultValue: 'sans-serif'
   },
   fontSize: {
     type: 'number',
-    default: 18
+    defaultValue: 18
   },
   format: {
     type: 'string', //TODO: multiple-choice?
-    default: 'mm/dd/yyyy'
+    defaultValue: 'mm/dd/yyyy'
   }
 };
 
-export default () => {
+export default props => {
   const date = new Date();
   const month = date.getMonth() + 1;
   const day = date.getDate();
   const year = date.getFullYear();
 
   return (
-    <div className="date">
-      <span>
-        {month}/{day}/{year}
-      </span>
+    <div className="date" style={props}>
+      {month}/{day}/{year}
     </div>
   );
 };

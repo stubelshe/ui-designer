@@ -3,22 +3,15 @@ import React, {useContext} from 'react';
 import './prop-editor.scss';
 
 function configRow(context, component, key, props) {
-  const {default: defaultValue, type} = props;
-  const value = component[key] || defaultValue;
+  const {defaultValue, type} = props;
+  let value = component[key];
+  if (value === undefined) value = defaultValue;
 
-  function handleChange(e) {
-    const {checked, value} = e.target;
-    const v =
-      type === 'boolean'
-        ? checked
-        : type === 'number' || type === 'fontSize'
-        ? Number(value)
-        : value;
+  const handleChange = async event => {
     const path = `propsMap.${component.componentId}.${key}`;
-    console.log('prop-editor.js handleChange: path =', path);
-    console.log('prop-editor.js handleChange: v =', v);
-    context.set(path, v);
-  }
+    const v = getEventValue(type, event);
+    await context.set(path, v);
+  };
 
   let input;
   switch (type) {
@@ -55,6 +48,15 @@ function configRow(context, component, key, props) {
       {input}
     </div>
   );
+}
+
+function getEventValue(type, event) {
+  const {checked, value} = event.target;
+  return type === 'boolean'
+    ? checked
+    : type === 'number' || type === 'fontSize'
+    ? Number(value)
+    : value;
 }
 
 export default ({config}) => {
