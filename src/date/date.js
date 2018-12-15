@@ -1,4 +1,4 @@
-import dateFns from 'date-fns';
+import {format} from 'date-fns';
 import React from 'react';
 import './date.scss';
 
@@ -32,7 +32,7 @@ export default props => {
   // Non-style props are ignored by the style attribute.
   return (
     <div className="date" style={props}>
-      {dateFns.format(new Date(), props.format)}
+      {format(new Date(), props.format)}
     </div>
   );
 };
