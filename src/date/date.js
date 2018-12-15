@@ -1,14 +1,17 @@
+import dateFns from 'date-fns';
 import React from 'react';
 import './date.scss';
+
+const formats = ['MMMM D, YYYY', 'MMM D, YYYY', 'M/D/YYYY'];
 
 export const config = {
   backgroundColor: {
     type: 'color',
-    defaultValue: 'white'
+    defaultValue: '#FFFFFF'
   },
   color: {
     type: 'color',
-    defaultValue: 'black'
+    defaultValue: '#000000'
   },
   fontFamily: {
     type: 'string', //TODO: multiple-choice?
@@ -19,21 +22,17 @@ export const config = {
     defaultValue: 18
   },
   format: {
-    type: 'string', //TODO: multiple-choice?
-    defaultValue: 'mm/dd/yyyy'
+    type: 'multipleChoice',
+    options: formats.map(format => ({label: format})),
+    defaultValue: formats[0]
   }
 };
 
 export default props => {
-  const date = new Date();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  const year = date.getFullYear();
-
+  // Non-style props are ignored by the style attribute.
   return (
-    // Non-style props are ignored by the style attribute.
     <div className="date" style={props}>
-      {month}/{day}/{year}
+      {dateFns.format(new Date(), props.format)}
     </div>
   );
 };

@@ -34,6 +34,21 @@ function configRow(context, component, key, props) {
     case 'fontSize':
       input = <input type="number" onChange={handleChange} value={value} />;
       break;
+    case 'multipleChoice':
+      const {options} = props;
+      input = (
+        <select onChange={handleChange} value={value}>
+          {options.map((option, index) => {
+            const {label, value} = option;
+            return (
+              <option key={'opt' + index} value={value || label}>
+                {label}
+              </option>
+            );
+          })}
+        </select>
+      );
+      break;
     case 'number':
       input = <input type="number" onChange={handleChange} value={value} />;
       break;
