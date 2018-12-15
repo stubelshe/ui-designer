@@ -31,14 +31,17 @@
 
     & > * {
       display: inline-block;
+    }
+
+    &.edit .container {
       margin: $spacing;
       padding: $spacing;
       outline: solid red 3px;
-    }
-  }
 
-  .container.selected {
-    outline-color: green;
+      &.selected {
+        outline-color: green;
+      }
+    }
   }
 
   .main {

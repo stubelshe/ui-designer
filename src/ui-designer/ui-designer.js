@@ -9,7 +9,7 @@ import ToggleButtons from '../toggle-buttons/toggle-buttons';
 
 import './ui-designer.scss';
 
-const buttons = [{text: 'Edit'}, {text: 'Test'}];
+const modes = ['Edit', 'Demo'];
 
 const configMap = {
   Clock: clockConfig,
@@ -29,21 +29,23 @@ function getComponent(props) {
 export default () => {
   const context = useContext(EasyContext);
   const {
-    nextComponentId,
+    lastComponentId,
+    mode,
     propsMap,
     selectedComponentName,
     selectedComponentId,
     selectedPage
   } = context;
 
+  const isEdit = mode === 'Edit';
   const selectedComponent = propsMap[selectedComponentId];
   const config = selectedComponent
     ? configMap[selectedComponent.componentName]
     : {};
 
   const addComponent = async () => {
-    const componentId = nextComponentId;
-    await context.increment('nextComponentId');
+    const componentId = lastComponentId + 1;
+    await context.increment('lastComponentId');
 
     const props = {
       componentId,
@@ -101,25 +103,30 @@ export default () => {
         <h2>UI Designer</h2>
         <div>
           <label>Mode</label>
-          <ToggleButtons buttons={buttons} />
+          <ToggleButtons buttons={modes} path="mode" />
         </div>
       </header>
-      <section className="component-select">
-        <Select path="selectedComponentName">
-          <option value="" />
-          <option value="Clock">Clock</option>
-          <option value="Date">Date</option>
-        </Select>
-        <button disabled={!selectedComponentName} onClick={addComponent}>
-          Add
-        </button>
-      </section>
+      {isEdit && (
+        <section className="component-select">
+          <Select path="selectedComponentName">
+            <option value="" />
+            <option value="Clock">Clock</option>
+            <option value="Date">Date</option>
+          </Select>
+          <button
+            disabled={!selectedPage || !selectedComponentName}
+            onClick={addComponent}
+          >
+            Add
+          </button>
+        </section>
+      )}
       <section className="main">
-        <Pages />
-        <section className="component-display">
+        {isEdit && <Pages />}
+        <section className={'component-display' + (isEdit ? ' edit' : '')}>
           {getComponents(propsMap)}
         </section>
-        {selectedComponentId ? <PropEditor config={config} /> : null}
+        {isEdit && selectedComponentId ? <PropEditor config={config} /> : null}
       </section>
       <footer />
     </div>

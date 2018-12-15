@@ -1,17 +1,18 @@
-import React, {useState} from 'react';
+import {EasyContext} from 'context-easy';
+import React, {useContext} from 'react';
 import './toggle-button.scss';
 
-export default ({buttons}) => {
-  const [selected, setSelected] = useState(0);
+export default ({buttons, path}) => {
+  const context = useContext(EasyContext);
   return (
     <div className="toggle-buttons">
-      {buttons.map((btn, index) => (
+      {buttons.map((button, index) => (
         <button
-          className={index === selected ? 'selected' : ''}
+          className={button === context[path] ? 'selected' : ''}
           key={'b' + index}
-          onClick={() => setSelected(index)}
+          onClick={() => context.set(path, button)}
         >
-          {btn.text}
+          {button}
         </button>
       ))}
     </div>

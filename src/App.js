@@ -4,8 +4,8 @@ import UIDesigner from './ui-designer/ui-designer';
 import './App.scss';
 
 const initialState = {
-  mode: 'edit', // or 'test'
-  nextComponentId: 0,
+  lastComponentId: 0,
+  mode: 'Edit',
   pageName: '',
   pages: {},
   propsMap: {},
