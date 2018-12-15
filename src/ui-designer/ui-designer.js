@@ -1,5 +1,5 @@
 import {EasyContext, Select} from 'context-easy';
-import React, {useContext} from 'react';
+import React, {useContext, useRef} from 'react';
 
 import Clock, {config as clockConfig} from '../clock/clock';
 import Date, {config as dateConfig} from '../date/date';
@@ -16,6 +16,8 @@ const configMap = {
   Date: dateConfig
 };
 
+let dragging, dx, dy;
+
 function getComponent(props) {
   switch (props.componentName) {
     case 'Clock':
@@ -28,6 +30,7 @@ function getComponent(props) {
 
 export default () => {
   const context = useContext(EasyContext);
+  const dragRef = useRef(null);
   const {
     lastComponentId,
     mode,
@@ -74,16 +77,48 @@ export default () => {
       if (!component) return null;
 
       const className = 'container' + (props.selected ? ' selected' : '');
+      const id = 'c' + componentId;
       return (
         <div
           className={className}
-          key={'c' + componentId}
+          id={id}
+          key={id}
           onClick={() => toggleSelected(componentId)}
+          onMouseDown={mouseDown}
+          onMouseUp={mouseUp}
         >
           {component}
         </div>
       );
     });
+  };
+
+  const mouseDown = event => {
+    dragRef.current = event.target;
+  };
+
+  const mouseMove = event => {
+    if (dragRef.current) {
+      const domElement = dragRef.current;
+      const {clientX, clientY} = event;
+      if (!dragging) {
+        dragging = true;
+        const rect = domElement.getBoundingClientRect();
+        dx = clientX - rect.x;
+        dy = clientY - rect.y;
+        console.log('ui-designer.js mouseMove: dx dy =', dx, dy);
+      }
+      const left = clientX - dx;
+      const top = clientY - dy;
+      const {style} = domElement;
+      style.left = left + 'px';
+      style.top = top + 'px';
+    }
+  };
+
+  const mouseUp = event => {
+    dragRef.current = null;
+    dragging = false;
   };
 
   const toggleSelected = async componentId => {
@@ -123,7 +158,10 @@ export default () => {
       )}
       <section className="main">
         {isEdit && <Pages />}
-        <section className={'component-display' + (isEdit ? ' edit' : '')}>
+        <section
+          className={'component-display' + (isEdit ? ' edit' : '')}
+          onMouseMove={mouseMove}
+        >
           {getComponents(propsMap)}
         </section>
         {isEdit && selectedComponentId ? <PropEditor config={config} /> : null}
