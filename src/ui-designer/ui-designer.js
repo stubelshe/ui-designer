@@ -93,11 +93,14 @@ export default () => {
     const element = event.target;
     const {style} = element;
 
-    moveAt(event.pageX, event.pageY);
+    const rect = element.getBoundingClientRect();
+    const padding = 10;
+    const shiftX = event.pageX - rect.left + padding;
+    const shiftY = event.pageY - rect.top + padding;
 
     function moveAt(pageX, pageY) {
-      style.left = pageX - element.offsetWidth / 2 + 'px';
-      style.top = pageY - element.offsetHeight / 2 + 'px';
+      style.left = pageX - shiftX + 'px';
+      style.top = pageY - shiftY + 'px';
     }
 
     const onMouseMove = event => moveAt(event.pageX, event.pageY);
