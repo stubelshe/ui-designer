@@ -2,6 +2,7 @@ import {format} from 'date-fns';
 import {string} from 'prop-types';
 import React from 'react';
 import {register} from '../library';
+import {getStyles} from '../styles';
 import './date-display.scss';
 
 const formats = ['MMMM D, YYYY', 'MMM D, YYYY', 'M/D/YYYY'];
@@ -33,7 +34,7 @@ const config = {
 function DateDisplay(props) {
   // Non-style props are ignored by the style attribute.
   return (
-    <div className="date-display" style={props}>
+    <div className="date-display" style={getStyles(props)}>
       {format(new Date(), props.format)}
     </div>
   );

@@ -8,6 +8,7 @@ import {EasyContext} from 'context-easy';
 import {string} from 'prop-types';
 import React, {useContext} from 'react';
 import {register} from '../library';
+import {getStyles} from '../styles';
 
 const kinds = ['button', 'link'];
 
@@ -28,13 +29,13 @@ const config = {
     type: 'fontSize',
     defaultValue: 18
   },
+  goToPage: {
+    type: 'page'
+  },
   kind: {
     type: 'multipleChoice',
     options: kinds.map(kind => ({label: kind})),
     defaultValue: kinds[0]
-  },
-  page: {
-    type: 'page'
   },
   text: {
     type: 'text',
@@ -43,21 +44,27 @@ const config = {
 };
 
 function NavItem(props) {
-  const {kind, page, text} = props;
+  const {goToPage, kind, text} = props;
   const context = useContext(EasyContext);
-  const navigate = () => context.set('page', page);
+  const navigate = () => context.set('selectedPage', goToPage);
+
+  const styles = getStyles(props);
+  if (kind === 'link') styles.backgroundColor = 'transparent';
+
   return kind === 'button' ? (
-    <button onClick={navigate} style={props}>
+    <button onClick={navigate} style={styles}>
       {text}
     </button>
   ) : (
-    <a onClick={navigate}>{text}</a>
+    <a href="#" onClick={navigate}>
+      {text}
+    </a>
   );
 }
 
 NavItem.propTypes = {
+  goToPage: string,
   kind: string,
-  page: string,
   text: string
 };
 

@@ -5,6 +5,7 @@
 import {EasyContext, Select} from 'context-easy';
 import React, {useContext} from 'react';
 import {getComponent, getComponentNames, getConfig} from '../library';
+import {getNonStyles} from '../styles';
 
 import '../components';
 
@@ -15,8 +16,6 @@ import ToggleButtons from '../toggle-buttons/toggle-buttons';
 import './ui-designer.scss';
 
 const MODES = ['Edit', 'Demo'];
-
-const STYLES = new Set(['backgroundColor', 'color', 'fontFamily', 'fontSize']);
 
 export default () => {
   const context = useContext(EasyContext);
@@ -42,7 +41,7 @@ export default () => {
     const properties = {
       componentId,
       componentName: selectedComponentName,
-      page: selectedPage
+      onPage: selectedPage
     };
     const config = getConfig(selectedComponentName);
     Object.keys(config).forEach(key => {
@@ -57,7 +56,7 @@ export default () => {
   const getComponents = propsMap => {
     // Get an array of component ids on the selected page.
     const componentIds = Object.keys(propsMap).filter(
-      id => propsMap[id].page === selectedPage
+      id => propsMap[id].onPage === selectedPage
     );
 
     return componentIds.map(componentId => {
@@ -65,20 +64,18 @@ export default () => {
       const component = getComponent(properties);
       if (!component) return null;
 
-      const styles = Object.keys(properties).reduce((obj, key) => {
-        if (STYLES.has(key)) obj[key] = properties[key];
-        return obj;
-      }, {});
-
+      const styles = getNonStyles(properties);
       const className = 'container' + (properties.selected ? ' selected' : '');
+      const onClick = isEdit ? () => toggleSelected(componentId) : null;
+      const onMouseDown = isEdit ? mouseDown : null;
       return (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events
         <div
           className={className}
           id={componentId}
           key={componentId}
-          onClick={() => toggleSelected(componentId)}
-          onMouseDown={mouseDown}
+          onClick={onClick}
+          onMouseDown={onMouseDown}
           style={styles}
         >
           {component}

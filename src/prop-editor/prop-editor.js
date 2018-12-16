@@ -56,11 +56,16 @@ function configRow(context, component, key, properties) {
       input = <input type="number" onChange={handleChange} value={value} />;
       break;
     case 'page': {
-      const pageNames = Object.keys(context.get('pages')).sort();
+      const pages = context.get('pages');
+      const selectedPage = context.get('selectedPage');
+      const pageNames = Object.keys(pages)
+        .filter(page => page !== selectedPage)
+        .sort();
       input = (
         <select onBlur={handleChange} onChange={handleChange} value={value}>
+          <option key="opt0" />
           {pageNames.map((pageName, index) => (
-            <option key={'opt' + index} value={pageName}>
+            <option key={'opt' + (index + 1)} value={pageName}>
               {pageName}
             </option>
           ))}

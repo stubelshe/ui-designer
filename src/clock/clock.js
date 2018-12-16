@@ -1,6 +1,7 @@
 import {bool} from 'prop-types';
 import React, {useEffect, useState} from 'react';
 import {register} from '../library';
+import {getStyles} from '../styles';
 import './clock.scss';
 
 function padNumber(n) {
@@ -54,7 +55,7 @@ function Clock(props) {
   time += ' ' + amPm;
 
   return (
-    <div className="clock" style={props}>
+    <div className="clock" style={getStyles(props)}>
       {time}
     </div>
   );
