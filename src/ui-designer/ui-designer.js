@@ -44,7 +44,7 @@ export default () => {
     : {};
 
   const addComponent = async () => {
-    const componentId = lastComponentId + 1;
+    const componentId = 'c' + (lastComponentId + 1);
     await context.increment('lastComponentId');
 
     const props = {
@@ -74,14 +74,14 @@ export default () => {
       if (!component) return null;
 
       const className = 'container' + (props.selected ? ' selected' : '');
-      const id = 'c' + componentId;
       return (
         <div
           className={className}
-          id={id}
-          key={id}
+          id={componentId}
+          key={componentId}
           onClick={() => toggleSelected(componentId)}
           onMouseDown={mouseDown}
+          style={props}
         >
           {component}
         </div>
@@ -119,6 +119,12 @@ export default () => {
     element.onmouseup = () => {
       document.removeEventListener('mousemove', onMouseMove);
       element.onmouseup = null;
+      const {left, top} = container.style;
+      context.transform('propsMap.' + container.id, props => ({
+        ...props,
+        left,
+        top
+      }));
     };
   };
 

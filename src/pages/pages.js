@@ -18,6 +18,7 @@ export default () => {
       [pageName]: newPage
     }));
 
+    await context.set('selectedPage', pageName);
     context.set('pageName', '');
   };
 
