@@ -14,7 +14,9 @@ import ToggleButtons from '../toggle-buttons/toggle-buttons';
 
 import './ui-designer.scss';
 
-const modes = ['Edit', 'Demo'];
+const MODES = ['Edit', 'Demo'];
+
+const STYLES = new Set(['backgroundColor', 'color', 'fontFamily', 'fontSize']);
 
 export default () => {
   const context = useContext(EasyContext);
@@ -63,6 +65,11 @@ export default () => {
       const component = getComponent(properties);
       if (!component) return null;
 
+      const styles = Object.keys(properties).reduce((obj, key) => {
+        if (STYLES.has(key)) obj[key] = properties[key];
+        return obj;
+      }, {});
+
       const className = 'container' + (properties.selected ? ' selected' : '');
       return (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events
@@ -72,7 +79,7 @@ export default () => {
           key={componentId}
           onClick={() => toggleSelected(componentId)}
           onMouseDown={mouseDown}
-          style={properties}
+          style={styles}
         >
           {component}
         </div>
@@ -80,6 +87,7 @@ export default () => {
     });
   };
 
+  // Based on https://javascript.info/mouse-drag-and-drop#drag-n-drop-algorithm
   const mouseDown = event => {
     const element = event.target;
     const container = element.parentElement;
@@ -137,7 +145,7 @@ export default () => {
         <div>
           <label>
             Mode
-            <ToggleButtons buttons={modes} path="mode" />
+            <ToggleButtons buttons={MODES} path="mode" />
           </label>
         </div>
       </header>
