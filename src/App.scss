@@ -7,12 +7,13 @@ body {
 
 button {
   border-radius: 4px;
+  color: green;
   font-weight: bold;
   margin-left: 10px;
   padding: 4px $spacing;
 
   &:disabled {
-    background-color: red;
+    background-color: lightgray;
     color: white;
   }
 }

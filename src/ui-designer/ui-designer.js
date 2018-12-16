@@ -1,8 +1,9 @@
 import {EasyContext, Select} from 'context-easy';
 import React, {useContext} from 'react';
+import {getComponent, getComponentNames, getConfig} from '../library';
 
-import Clock, {config as clockConfig} from '../clock/clock';
-import Date, {config as dateConfig} from '../date/date';
+import '../components';
+
 import Pages from '../pages/pages';
 import PropEditor from '../prop-editor/prop-editor';
 import ToggleButtons from '../toggle-buttons/toggle-buttons';
@@ -10,21 +11,6 @@ import ToggleButtons from '../toggle-buttons/toggle-buttons';
 import './ui-designer.scss';
 
 const modes = ['Edit', 'Demo'];
-
-const configMap = {
-  Clock: clockConfig,
-  Date: dateConfig
-};
-
-function getComponent(props) {
-  switch (props.componentName) {
-    case 'Clock':
-      return <Clock {...props} />;
-    case 'Date':
-      return <Date {...props} />;
-    default:
-  }
-}
 
 export default () => {
   const context = useContext(EasyContext);
@@ -40,7 +26,7 @@ export default () => {
   const isEdit = mode === 'Edit';
   const selectedComponent = propsMap[selectedComponentId];
   const config = selectedComponent
-    ? configMap[selectedComponent.componentName]
+    ? getConfig(selectedComponent.componentName)
     : {};
 
   const addComponent = async () => {
@@ -52,7 +38,12 @@ export default () => {
       componentName: selectedComponentName,
       page: selectedPage
     };
-    const config = configMap[selectedComponentName];
+    console.log(
+      'ui-designer.js addComponent: selectedComponentName =',
+      selectedComponentName
+    );
+    const config = getConfig(selectedComponentName);
+    console.log('ui-designer.js addComponent: config =', config);
     Object.keys(config).forEach(key => {
       const {defaultValue} = config[key];
       if (defaultValue) props[key] = defaultValue;
@@ -139,6 +130,8 @@ export default () => {
     context.set('propsMap', newPropsMap);
   };
 
+  const componentNames = getComponentNames();
+
   return (
     <div className="ui-designer">
       <header>
@@ -152,8 +145,9 @@ export default () => {
         <section className="component-select">
           <Select path="selectedComponentName">
             <option value="" />
-            <option value="Clock">Clock</option>
-            <option value="Date">Date</option>
+            {componentNames.map((name, index) => (
+              <option key={'option' + index}>{name}</option>
+            ))}
           </Select>
           <button
             disabled={!selectedPage || !selectedComponentName}

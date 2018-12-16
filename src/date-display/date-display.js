@@ -1,10 +1,11 @@
 import {format} from 'date-fns';
 import React from 'react';
-import './date.scss';
+import {register} from '../library';
+import './date-display.scss';
 
 const formats = ['MMMM D, YYYY', 'MMM D, YYYY', 'M/D/YYYY'];
 
-export const config = {
+const config = {
   backgroundColor: {
     type: 'color',
     defaultValue: '#FFFFFF'
@@ -28,11 +29,13 @@ export const config = {
   }
 };
 
-export default props => {
+function DateDisplay(props) {
   // Non-style props are ignored by the style attribute.
   return (
-    <div className="date" style={props}>
+    <div className="date-display" style={props}>
       {format(new Date(), props.format)}
     </div>
   );
-};
+}
+
+register(DateDisplay, config);

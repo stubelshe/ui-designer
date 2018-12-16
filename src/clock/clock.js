@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
+import {register} from '../library';
 import './clock.scss';
 
 function padNumber(n) {
   return n.toString().padStart(2, '0');
 }
 
-export const config = {
+const config = {
   backgroundColor: {
     type: 'color',
     defaultValue: '#BBBBBB'
@@ -32,7 +33,7 @@ export const config = {
   }
 };
 
-export default props => {
+function Clock(props) {
   const [, refresh] = useState();
 
   useEffect(() => {
@@ -56,4 +57,6 @@ export default props => {
       {time}
     </div>
   );
-};
+}
+
+register(Clock, config);

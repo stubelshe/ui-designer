@@ -15,15 +15,6 @@
     }
   }
 
-  .component-select {
-    background-color: lightblue;
-    padding: $spacing;
-
-    select {
-      font-size: 18px;
-    }
-  }
-
   .component-display {
     background-color: linen;
     flex-grow: 1;
@@ -43,6 +34,17 @@
       &.selected {
         outline-color: green;
       }
+    }
+  }
+
+  .component-select {
+    background-color: lightblue;
+    display: flex;
+    align-items: center;
+    padding: $spacing;
+
+    select {
+      font-size: 18px;
     }
   }
 
