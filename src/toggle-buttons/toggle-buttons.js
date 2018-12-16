@@ -1,8 +1,9 @@
 import {EasyContext} from 'context-easy';
+import {arrayOf, string} from 'prop-types';
 import React, {useContext} from 'react';
 import './toggle-button.scss';
 
-export default ({buttons, path}) => {
+function ToggleButtons({buttons, path}) {
   const context = useContext(EasyContext);
   return (
     <div className="toggle-buttons">
@@ -17,4 +18,11 @@ export default ({buttons, path}) => {
       ))}
     </div>
   );
+}
+
+ToggleButtons.propTypes = {
+  buttons: arrayOf(string),
+  path: string
 };
+
+export default ToggleButtons;

@@ -1,4 +1,5 @@
 import {format} from 'date-fns';
+import {string} from 'prop-types';
 import React from 'react';
 import {register} from '../library';
 import './date-display.scss';
@@ -37,5 +38,9 @@ function DateDisplay(props) {
     </div>
   );
 }
+
+DateDisplay.propTypes = {
+  format: string
+};
 
 register(DateDisplay, config);

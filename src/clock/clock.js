@@ -1,3 +1,4 @@
+import {bool} from 'prop-types';
 import React, {useEffect, useState} from 'react';
 import {register} from '../library';
 import './clock.scss';
@@ -58,5 +59,10 @@ function Clock(props) {
     </div>
   );
 }
+
+Clock.propTypes = {
+  hours24: bool,
+  showSeconds: bool
+};
 
 register(Clock, config);

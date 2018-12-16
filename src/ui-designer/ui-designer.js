@@ -1,3 +1,7 @@
+/* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+
 import {EasyContext, Select} from 'context-easy';
 import React, {useContext} from 'react';
 import {getComponent, getComponentNames, getConfig} from '../library';
@@ -33,7 +37,7 @@ export default () => {
     const componentId = 'c' + (lastComponentId + 1);
     await context.increment('lastComponentId');
 
-    const props = {
+    const properties = {
       componentId,
       componentName: selectedComponentName,
       page: selectedPage
@@ -41,10 +45,10 @@ export default () => {
     const config = getConfig(selectedComponentName);
     Object.keys(config).forEach(key => {
       const {defaultValue} = config[key];
-      if (defaultValue) props[key] = defaultValue;
+      if (defaultValue) properties[key] = defaultValue;
     });
 
-    const newPropsMap = {...propsMap, [componentId]: props};
+    const newPropsMap = {...propsMap, [componentId]: properties};
     context.set('propsMap', newPropsMap);
   };
 
@@ -55,19 +59,20 @@ export default () => {
     );
 
     return componentIds.map(componentId => {
-      const props = propsMap[componentId];
-      const component = getComponent(props);
+      const properties = propsMap[componentId];
+      const component = getComponent(properties);
       if (!component) return null;
 
-      const className = 'container' + (props.selected ? ' selected' : '');
+      const className = 'container' + (properties.selected ? ' selected' : '');
       return (
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events
         <div
           className={className}
           id={componentId}
           key={componentId}
           onClick={() => toggleSelected(componentId)}
           onMouseDown={mouseDown}
-          style={props}
+          style={properties}
         >
           {component}
         </div>
@@ -130,8 +135,10 @@ export default () => {
       <header>
         <h2>UI Designer</h2>
         <div>
-          <label>Mode</label>
-          <ToggleButtons buttons={modes} path="mode" />
+          <label>
+            Mode
+            <ToggleButtons buttons={modes} path="mode" />
+          </label>
         </div>
       </header>
       {isEdit && (

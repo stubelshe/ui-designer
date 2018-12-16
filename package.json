@@ -6,15 +6,17 @@
     "context-easy": "^0.8.1",
     "date-fns": "^1.30.1",
     "node-sass": "^4.11.0",
+    "prop-types": "^15.6.2",
     "react": "16.7.0-alpha.0",
     "react-dom": "16.7.0-alpha.0",
     "react-scripts": "2.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "format": "prettier --write 'src/**/*.{js,scss}'",
+    "lint": "eslint --quiet src --ext .js",
+    "start": "react-scripts start",
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -24,5 +26,10 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "eslint-plugin-html": "^5.0.0",
+    "eslint-plugin-react": "^7.11.1",
+    "prettier": "^1.15.3"
+  }
 }

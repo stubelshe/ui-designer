@@ -5,8 +5,8 @@
   padding: $spacing;
   //width: 200px;
 
-  label {
-    margin-right: $spacing;
+  input, select {
+    margin-left: $spacing;
   }
 
   .row {

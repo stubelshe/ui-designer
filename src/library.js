@@ -3,9 +3,9 @@ import React from 'react';
 const componentMap = {};
 const configMap = {};
 
-export function getComponent(props) {
-  const component = componentMap[props.componentName];
-  return React.createElement(component, props);
+export function getComponent(properties) {
+  const component = componentMap[properties.componentName];
+  return React.createElement(component, properties);
 }
 
 export const getComponentNames = () => Object.keys(componentMap).sort();

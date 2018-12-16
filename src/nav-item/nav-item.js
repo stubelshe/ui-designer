@@ -1,4 +1,11 @@
+// These allow using an a tag with no href
+// and using onClick without onKeyPress.
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+
 import {EasyContext} from 'context-easy';
+import {string} from 'prop-types';
 import React, {useContext} from 'react';
 import {register} from '../library';
 
@@ -27,7 +34,7 @@ const config = {
     defaultValue: kinds[0]
   },
   page: {
-    type: 'text'
+    type: 'page'
   },
   text: {
     type: 'text',
@@ -44,10 +51,14 @@ function NavItem(props) {
       {text}
     </button>
   ) : (
-    <a href="" onClick={navigate}>
-      {text}
-    </a>
+    <a onClick={navigate}>{text}</a>
   );
 }
+
+NavItem.propTypes = {
+  kind: string,
+  page: string,
+  text: string
+};
 
 register(NavItem, config);

@@ -1,3 +1,7 @@
+// These allow using onClick without onKeyPress.
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+
 import {EasyContext, Input} from 'context-easy';
 import React, {useContext} from 'react';
 import './pages.scss';
@@ -27,8 +31,8 @@ export default () => {
     await context.transform('propsMap', propsMap => {
       const ids = Object.keys(propsMap);
       return ids.reduce((map, id) => {
-        const props = propsMap[id];
-        map[id] = {...props, selected: false};
+        const properties = propsMap[id];
+        map[id] = {...properties, selected: false};
         return map;
       }, {});
     });
@@ -39,9 +43,9 @@ export default () => {
     await context.transform('propsMap', propsMap => {
       const ids = Object.keys(propsMap);
       return ids.reduce((map, id) => {
-        const props = propsMap[id];
+        const properties = propsMap[id];
         // Keep components not on the page being deleted.
-        if (props.page !== name) map[id] = props;
+        if (properties.page !== name) map[id] = properties;
         return map;
       }, {});
     });

@@ -1,9 +1,11 @@
+/* eslint-disable jsx-a11y/label-has-for */
 import {EasyContext} from 'context-easy';
+import {object} from 'prop-types';
 import React, {useContext} from 'react';
 import './prop-editor.scss';
 
-function configRow(context, component, key, props) {
-  const {defaultValue, type} = props;
+function configRow(context, component, key, properties) {
+  const {defaultValue, type} = properties;
   let value = component[key];
   if (value === undefined) value = defaultValue;
 
@@ -24,7 +26,7 @@ function configRow(context, component, key, props) {
       break;
     case 'fontFamily':
       input = (
-        <select onChange={handleChange} value={value}>
+        <select onBlur={handleChange} onChange={handleChange} value={value}>
           <option>monospace</option>
           <option>sans-serif</option>
           <option>serif</option>
@@ -34,10 +36,10 @@ function configRow(context, component, key, props) {
     case 'fontSize':
       input = <input type="number" onChange={handleChange} value={value} />;
       break;
-    case 'multipleChoice':
-      const {options} = props;
+    case 'multipleChoice': {
+      const {options} = properties;
       input = (
-        <select onChange={handleChange} value={value}>
+        <select onBlur={handleChange} onChange={handleChange} value={value}>
           {options.map((option, index) => {
             const {label, value} = option;
             return (
@@ -49,9 +51,23 @@ function configRow(context, component, key, props) {
         </select>
       );
       break;
+    }
     case 'number':
       input = <input type="number" onChange={handleChange} value={value} />;
       break;
+    case 'page': {
+      const pageNames = Object.keys(context.get('pages')).sort();
+      input = (
+        <select onBlur={handleChange} onChange={handleChange} value={value}>
+          {pageNames.map((pageName, index) => (
+            <option key={'opt' + index} value={pageName}>
+              {pageName}
+            </option>
+          ))}
+        </select>
+      );
+      break;
+    }
     case 'text':
       input = <input type="text" onChange={handleChange} value={value} />;
       break;
@@ -60,8 +76,10 @@ function configRow(context, component, key, props) {
 
   return (
     <div className="row" key={key}>
-      <label>{key}</label>
-      {input}
+      <label>
+        {key}
+        {input}
+      </label>
     </div>
   );
 }
@@ -75,10 +93,9 @@ function getEventValue(type, event) {
     : value;
 }
 
-export default ({config}) => {
+function PropEditor({config}) {
   const context = useContext(EasyContext);
   const {propsMap, selectedComponentId} = context;
-
   const selectedComponent = propsMap[selectedComponentId];
 
   const keys = Object.keys(config).sort();
@@ -89,4 +106,10 @@ export default ({config}) => {
       {keys.map(key => configRow(context, selectedComponent, key, config[key]))}
     </div>
   );
+}
+
+PropEditor.propTypes = {
+  config: object
 };
+
+export default PropEditor;
