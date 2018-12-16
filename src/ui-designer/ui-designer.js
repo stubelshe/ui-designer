@@ -11,6 +11,8 @@ import './ui-designer.scss';
 
 const modes = ['Edit', 'Demo'];
 
+const PADDING = 10;
+
 const configMap = {
   Clock: clockConfig,
   Date: dateConfig
@@ -92,15 +94,24 @@ export default () => {
   const mouseDown = event => {
     const element = event.target;
     const {style} = element;
-
+    const parentRect = element.parentElement.getBoundingClientRect();
     const rect = element.getBoundingClientRect();
-    const padding = 10;
-    const shiftX = event.pageX - rect.left + padding;
-    const shiftY = event.pageY - rect.top + padding;
+
+    const minX = parentRect.x;
+    const minY = parentRect.y;
+    const maxX = minX + parentRect.width - rect.width - PADDING;
+    const maxY = minY + parentRect.height - rect.height - PADDING;
+
+    const shiftX = event.pageX - rect.left + PADDING;
+    const shiftY = event.pageY - rect.top + PADDING;
 
     function moveAt(pageX, pageY) {
-      style.left = pageX - shiftX + 'px';
-      style.top = pageY - shiftY + 'px';
+      const x = pageX - shiftX;
+      const y = pageY - shiftY;
+      if (x < minX || y < minY || (x > maxX) | (y > maxY)) return;
+
+      style.left = x + 'px';
+      style.top = y + 'px';
     }
 
     const onMouseMove = event => moveAt(event.pageX, event.pageY);
