@@ -1,5 +1,5 @@
 import {EasyContext, Select} from 'context-easy';
-import React, {useContext, useRef} from 'react';
+import React, {useContext} from 'react';
 
 import Clock, {config as clockConfig} from '../clock/clock';
 import Date, {config as dateConfig} from '../date/date';
@@ -16,8 +16,6 @@ const configMap = {
   Date: dateConfig
 };
 
-let dragging, dx, dy;
-
 function getComponent(props) {
   switch (props.componentName) {
     case 'Clock':
@@ -30,7 +28,6 @@ function getComponent(props) {
 
 export default () => {
   const context = useContext(EasyContext);
-  const dragRef = useRef(null);
   const {
     lastComponentId,
     mode,
@@ -85,7 +82,6 @@ export default () => {
           key={id}
           onClick={() => toggleSelected(componentId)}
           onMouseDown={mouseDown}
-          onMouseUp={mouseUp}
         >
           {component}
         </div>
@@ -94,31 +90,22 @@ export default () => {
   };
 
   const mouseDown = event => {
-    dragRef.current = event.target;
-  };
+    const element = event.target;
+    const {style} = element;
 
-  const mouseMove = event => {
-    if (dragRef.current) {
-      const domElement = dragRef.current;
-      const {clientX, clientY} = event;
-      if (!dragging) {
-        dragging = true;
-        const rect = domElement.getBoundingClientRect();
-        dx = clientX - rect.x;
-        dy = clientY - rect.y;
-        console.log('ui-designer.js mouseMove: dx dy =', dx, dy);
-      }
-      const left = clientX - dx;
-      const top = clientY - dy;
-      const {style} = domElement;
-      style.left = left + 'px';
-      style.top = top + 'px';
+    moveAt(event.pageX, event.pageY);
+
+    function moveAt(pageX, pageY) {
+      style.left = pageX - element.offsetWidth / 2 + 'px';
+      style.top = pageY - element.offsetHeight / 2 + 'px';
     }
-  };
 
-  const mouseUp = event => {
-    dragRef.current = null;
-    dragging = false;
+    const onMouseMove = event => moveAt(event.pageX, event.pageY);
+    document.addEventListener('mousemove', onMouseMove);
+    element.onmouseup = () => {
+      document.removeEventListener('mousemove', onMouseMove);
+      element.onmouseup = null;
+    };
   };
 
   const toggleSelected = async componentId => {
@@ -158,10 +145,7 @@ export default () => {
       )}
       <section className="main">
         {isEdit && <Pages />}
-        <section
-          className={'component-display' + (isEdit ? ' edit' : '')}
-          onMouseMove={mouseMove}
-        >
+        <section className={'component-display' + (isEdit ? ' edit' : '')}>
           {getComponents(propsMap)}
         </section>
         {isEdit && selectedComponentId ? <PropEditor config={config} /> : null}
