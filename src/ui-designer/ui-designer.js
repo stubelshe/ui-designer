@@ -38,12 +38,7 @@ export default () => {
       componentName: selectedComponentName,
       page: selectedPage
     };
-    console.log(
-      'ui-designer.js addComponent: selectedComponentName =',
-      selectedComponentName
-    );
     const config = getConfig(selectedComponentName);
-    console.log('ui-designer.js addComponent: config =', config);
     Object.keys(config).forEach(key => {
       const {defaultValue} = config[key];
       if (defaultValue) props[key] = defaultValue;
@@ -120,14 +115,12 @@ export default () => {
   };
 
   const toggleSelected = async componentId => {
-    const properties = propsMap[componentId];
-    const selected = !properties.selected;
-    const newPropsMap = {
-      ...propsMap,
-      [componentId]: {...properties, selected}
-    };
-    await context.set('selectedComponentId', selected ? componentId : 0);
-    context.set('propsMap', newPropsMap);
+    if (selectedComponentId) {
+      await context.set(`propsMap.${selectedComponentId}.selected`, false);
+    }
+    const different = componentId !== selectedComponentId;
+    if (different) await context.set(`propsMap.${componentId}.selected`, true);
+    context.set(`selectedComponentId`, different ? componentId : 0);
   };
 
   const componentNames = getComponentNames();
