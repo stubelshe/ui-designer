@@ -24,12 +24,11 @@
       display: inline-block;
       position: absolute;
       left: 200px;
-      top: 200px;
+      top: 150px;
     }
 
     &.edit .container {
       outline: solid red 3px;
-      z-index: 2;
 
       &.selected {
         outline-color: green;
