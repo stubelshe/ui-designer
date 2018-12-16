@@ -43,6 +43,10 @@
     align-items: center;
     padding: $spacing;
 
+    button {
+      margin-left: $spacing;
+    }
+
     select {
       font-size: 18px;
     }
