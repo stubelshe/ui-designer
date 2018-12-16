@@ -27,7 +27,6 @@
   .component-display {
     background-color: linen;
     flex-grow: 1;
-    padding: $spacing;
 
     // The components
     & > * {
@@ -38,8 +37,8 @@
     }
 
     &.edit .container {
-      padding: $spacing;
       outline: solid red 3px;
+      z-index: 2;
 
       &.selected {
         outline-color: green;

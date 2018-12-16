@@ -11,8 +11,6 @@ import './ui-designer.scss';
 
 const modes = ['Edit', 'Demo'];
 
-const PADDING = 10;
-
 const configMap = {
   Clock: clockConfig,
   Date: dateConfig
@@ -93,22 +91,24 @@ export default () => {
 
   const mouseDown = event => {
     const element = event.target;
-    const {style} = element;
-    const parentRect = element.parentElement.getBoundingClientRect();
+    const container = element.parentElement;
+    const {style} = container;
+    const page = container.parentElement;
+    const pageRect = page.getBoundingClientRect();
     const rect = element.getBoundingClientRect();
 
-    const minX = parentRect.x;
-    const minY = parentRect.y;
-    const maxX = minX + parentRect.width - rect.width;
-    const maxY = minY + parentRect.height - rect.height;
+    const minX = pageRect.x;
+    const minY = pageRect.y;
+    const maxX = minX + pageRect.width - rect.width;
+    const maxY = minY + pageRect.height - rect.height;
 
-    const shiftX = event.pageX - rect.left + PADDING;
-    const shiftY = event.pageY - rect.top + PADDING;
+    const shiftX = event.pageX - rect.left;
+    const shiftY = event.pageY - rect.top;
 
     function moveAt(pageX, pageY) {
       const x = pageX - shiftX;
       const y = pageY - shiftY;
-      if (x < minX || y < minY || (x > maxX) | (y > maxY)) return;
+      if (x < minX || x > maxX || y < minY || y > maxY) return;
 
       style.left = x + 'px';
       style.top = y + 'px';
