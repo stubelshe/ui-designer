@@ -99,8 +99,8 @@ export default () => {
 
     const minX = parentRect.x;
     const minY = parentRect.y;
-    const maxX = minX + parentRect.width - rect.width - PADDING;
-    const maxY = minY + parentRect.height - rect.height - PADDING;
+    const maxX = minX + parentRect.width - rect.width;
+    const maxY = minY + parentRect.height - rect.height;
 
     const shiftX = event.pageX - rect.left + PADDING;
     const shiftY = event.pageY - rect.top + PADDING;
