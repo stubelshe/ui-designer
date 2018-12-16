@@ -111,8 +111,8 @@ export default () => {
       document.removeEventListener('mousemove', onMouseMove);
       element.onmouseup = null;
       const {left, top} = container.style;
-      context.transform('propsMap.' + container.id, props => ({
-        ...props,
+      context.transform('propsMap.' + container.id, properties => ({
+        ...properties,
         left,
         top
       }));
