@@ -82,11 +82,19 @@ function configRow(context, component, key, properties) {
   return (
     <div className="row" key={key}>
       <label>
-        {key}
+        {formatKey(key)}
         {input}
       </label>
     </div>
   );
+}
+
+function formatKey(key) {
+  const [first] = key;
+  let rest = key.substring(1);
+  rest = rest.replace(/([A-Z])/g, ' $1');
+  rest = rest.replace(/(\d+)/g, ' $1');
+  return first.toUpperCase() + rest;
 }
 
 function getEventValue(type, event) {
