@@ -11,7 +11,7 @@ const handleSubmit = e => e.preventDefault();
 
 export default () => {
   const context = useContext(EasyContext);
-  const {pageName, pages, selectedPage} = context;
+  const {pageName, pages, selectedComponentId, selectedPage} = context;
   const pageNames = Object.keys(pages).sort();
 
   const addPage = async () => {
@@ -26,20 +26,16 @@ export default () => {
     context.set('pageName', '');
   };
 
-  const clearSelections = async () => {
+  const clearSelection = async () => {
+    await context.set(
+      `instancePropsMap.${selectedComponentId}.selected`,
+      false
+    );
     await context.set('selectedComponentId', 0);
-    await context.transform('instancePropsMap', instancePropsMap => {
-      const ids = Object.keys(instancePropsMap);
-      return ids.reduce((map, id) => {
-        const properties = instancePropsMap[id];
-        map[id] = {...properties, selected: false};
-        return map;
-      }, {});
-    });
   };
 
   const deletePage = async name => {
-    // Delete all the components on the page.
+    // Delete all the components on the current page.
     await context.transform('instancePropsMap', instancePropsMap => {
       const ids = Object.keys(instancePropsMap);
       return ids.reduce((map, id) => {
@@ -52,11 +48,11 @@ export default () => {
 
     // Delete the page.
     await context.delete('pages.' + name);
-    clearSelections();
+    clearSelection();
   };
 
   const selectPage = async name => {
-    await clearSelections();
+    await clearSelection();
     context.set('selectedPage', name);
   };
 
