@@ -28,10 +28,10 @@ export default () => {
 
   const clearSelections = async () => {
     await context.set('selectedComponentId', 0);
-    await context.transform('propsMap', propsMap => {
-      const ids = Object.keys(propsMap);
+    await context.transform('instancePropsMap', instancePropsMap => {
+      const ids = Object.keys(instancePropsMap);
       return ids.reduce((map, id) => {
-        const properties = propsMap[id];
+        const properties = instancePropsMap[id];
         map[id] = {...properties, selected: false};
         return map;
       }, {});
@@ -40,10 +40,10 @@ export default () => {
 
   const deletePage = async name => {
     // Delete all the components on the page.
-    await context.transform('propsMap', propsMap => {
-      const ids = Object.keys(propsMap);
+    await context.transform('instancePropsMap', instancePropsMap => {
+      const ids = Object.keys(instancePropsMap);
       return ids.reduce((map, id) => {
-        const properties = propsMap[id];
+        const properties = instancePropsMap[id];
         // Keep components not on the page being deleted.
         if (properties.page !== name) map[id] = properties;
         return map;

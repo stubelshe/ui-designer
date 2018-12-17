@@ -4,11 +4,12 @@ import UIDesigner from './ui-designer/ui-designer';
 import './App.scss';
 
 const initialState = {
+  classPropsMap: {},
+  instancePropsMap: {},
   lastComponentId: 0,
   mode: 'Edit',
   pageName: '',
   pages: {},
-  propsMap: {},
   propScope: 'Instance',
   selectedComponentId: 0,
   selectedComponentName: '',

@@ -13,7 +13,7 @@ function configRow(context, component, key, properties) {
   if (value === undefined) value = defaultValue;
 
   const handleChange = async event => {
-    const path = `propsMap.${component.componentId}.${key}`;
+    const path = `instancePropsMap.${component.componentId}.${key}`;
     const v = getEventValue(type, event);
     await context.set(path, v);
   };
@@ -111,8 +111,8 @@ function getEventValue(type, event) {
 
 function PropEditor({config}) {
   const context = useContext(EasyContext);
-  const {propsMap, selectedComponentId} = context;
-  const selectedComponent = propsMap[selectedComponentId];
+  const {instancePropsMap, selectedComponentId} = context;
+  const selectedComponent = instancePropsMap[selectedComponentId];
 
   const keys = Object.keys(config).sort();
   if (keys.length === 0) return null;

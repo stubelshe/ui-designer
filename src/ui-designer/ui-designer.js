@@ -22,14 +22,14 @@ export default () => {
   const {
     lastComponentId,
     mode,
-    propsMap,
+    instancePropsMap,
     selectedComponentName,
     selectedComponentId,
     selectedPage
   } = context;
 
   const isEdit = mode === 'Edit';
-  const selectedComponent = propsMap[selectedComponentId];
+  const selectedComponent = instancePropsMap[selectedComponentId];
   const config = selectedComponent
     ? getConfig(selectedComponent.componentName)
     : {};
@@ -49,18 +49,18 @@ export default () => {
       if (defaultValue) properties[key] = defaultValue;
     });
 
-    const newPropsMap = {...propsMap, [componentId]: properties};
-    context.set('propsMap', newPropsMap);
+    const newPropsMap = {...instancePropsMap, [componentId]: properties};
+    context.set('instancePropsMap', newPropsMap);
   };
 
-  const getComponents = propsMap => {
+  const getComponents = instancePropsMap => {
     // Get an array of component ids on the selected page.
-    const componentIds = Object.keys(propsMap).filter(
-      id => propsMap[id].onPage === selectedPage
+    const componentIds = Object.keys(instancePropsMap).filter(
+      id => instancePropsMap[id].onPage === selectedPage
     );
 
     return componentIds.map(componentId => {
-      const properties = propsMap[componentId];
+      const properties = instancePropsMap[componentId];
       const component = getComponent(properties);
       if (!component) return null;
 
@@ -116,7 +116,7 @@ export default () => {
       document.removeEventListener('mousemove', onMouseMove);
       element.onmouseup = null;
       const {left, top} = container.style;
-      context.transform('propsMap.' + container.id, properties => ({
+      context.transform('instancePropsMap.' + container.id, properties => ({
         ...properties,
         left,
         top
@@ -126,10 +126,14 @@ export default () => {
 
   const toggleSelected = async componentId => {
     if (selectedComponentId) {
-      await context.set(`propsMap.${selectedComponentId}.selected`, false);
+      await context.set(
+        `instancePropsMap.${selectedComponentId}.selected`,
+        false
+      );
     }
     const different = componentId !== selectedComponentId;
-    if (different) await context.set(`propsMap.${componentId}.selected`, true);
+    if (different)
+      await context.set(`instancePropsMap.${componentId}.selected`, true);
     context.set(`selectedComponentId`, different ? componentId : 0);
   };
 
@@ -165,7 +169,7 @@ export default () => {
       <section className="main">
         {isEdit && <Pages />}
         <section className={'component-display' + (isEdit ? ' edit' : '')}>
-          {getComponents(propsMap)}
+          {getComponents(instancePropsMap)}
         </section>
         {isEdit && selectedComponentId ? <PropEditor config={config} /> : null}
       </section>
