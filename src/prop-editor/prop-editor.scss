@@ -10,6 +10,20 @@
     margin-left: $spacing;
   }
 
+  .prop-scope {
+    display: inline-block;
+
+    & > div {
+      display: inline-block;
+    }
+  }
+
+  .prop-scope-row {
+    border-bottom: solid black 1px;
+    margin-bottom: $spacing;
+    padding-bottom: $spacing;
+  }
+
   .row {
     display: flex;
     align-items: center;

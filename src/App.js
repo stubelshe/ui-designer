@@ -9,6 +9,7 @@ const initialState = {
   pageName: '',
   pages: {},
   propsMap: {},
+  propScope: 'Instance',
   selectedComponentId: 0,
   selectedComponentName: '',
   selectedPage: ''

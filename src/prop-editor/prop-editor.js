@@ -1,8 +1,11 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
-import {EasyContext} from 'context-easy';
+import {EasyContext, RadioButtons} from 'context-easy';
 import {object} from 'prop-types';
 import React, {useContext} from 'react';
 import './prop-editor.scss';
+
+const scopeButtonList = [{text: 'Class'}, {text: 'Instance'}];
 
 function configRow(context, component, key, properties) {
   const {defaultValue, type} = properties;
@@ -116,6 +119,16 @@ function PropEditor({config}) {
 
   return (
     <div className="prop-editor">
+      <div className="prop-scope-row">
+        <label>
+          Scope
+          <RadioButtons
+            className="prop-scope"
+            list={scopeButtonList}
+            path="propScope"
+          />
+        </label>
+      </div>
       {keys.map(key => configRow(context, selectedComponent, key, config[key]))}
     </div>
   );
