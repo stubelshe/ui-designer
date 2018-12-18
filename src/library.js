@@ -4,6 +4,20 @@ const componentMap = {};
 const configMap = {};
 const defaultsMap = {};
 
+export function clearInstanceProperties(context, componentId) {
+  const instanceProps = context.instancePropsMap[componentId];
+  const {componentName} = instanceProps;
+  const classProps = context.classPropsMap[componentName];
+  const defaults = defaultsMap[componentName];
+
+  const config = configMap[componentName];
+  const copy = {...instanceProps};
+  Object.keys(config).forEach(
+    key => (copy[key] = classProps[key] || defaults[key])
+  );
+  context.set(`instancePropsMap.${componentId}`, copy);
+}
+
 export function getComponent(properties) {
   const {componentName} = properties;
   const component = componentMap[componentName];

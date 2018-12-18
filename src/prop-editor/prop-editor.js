@@ -3,6 +3,9 @@
 import {EasyContext, RadioButtons} from 'context-easy';
 import {object} from 'prop-types';
 import React, {useContext} from 'react';
+
+import {clearInstanceProperties} from '../library';
+
 import './prop-editor.scss';
 
 const scopeButtonList = [
@@ -126,12 +129,12 @@ function getEventValue(type, event) {
 }
 
 function PropEditor({config}) {
+  const keys = Object.keys(config).sort();
+  if (keys.length === 0) return null;
+
   const context = useContext(EasyContext);
   const {instancePropsMap, selectedComponentId} = context;
   const selectedComponent = instancePropsMap[selectedComponentId];
-
-  const keys = Object.keys(config).sort();
-  if (keys.length === 0) return null;
 
   return (
     <div className="prop-editor">
@@ -146,6 +149,13 @@ function PropEditor({config}) {
         </label>
       </div>
       {keys.map(key => configRow(context, selectedComponent, key, config[key]))}
+      <div>
+        <button
+          onClick={() => clearInstanceProperties(context, selectedComponentId)}
+        >
+          Clear Instance Properties
+        </button>
+      </div>
     </div>
   );
 }
