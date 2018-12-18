@@ -4,7 +4,12 @@
 
 import {EasyContext, Select} from 'context-easy';
 import React, {useContext} from 'react';
-import {getComponent, getComponentNames, getConfig} from '../library';
+import {
+  getComponent,
+  getComponentNames,
+  getConfig,
+  getProperties
+} from '../library';
 import {getNonStyles} from '../styles';
 
 import '../components';
@@ -20,9 +25,10 @@ const MODES = ['Edit', 'Demo'];
 export default () => {
   const context = useContext(EasyContext);
   const {
+    classPropsMap,
+    instancePropsMap,
     lastComponentId,
     mode,
-    instancePropsMap,
     selectedComponentName,
     selectedComponentId,
     selectedPage
@@ -43,11 +49,6 @@ export default () => {
       componentName: selectedComponentName,
       onPage: selectedPage
     };
-    const config = getConfig(selectedComponentName);
-    Object.keys(config).forEach(key => {
-      const {defaultValue} = config[key];
-      if (defaultValue) properties[key] = defaultValue;
-    });
 
     const newPropsMap = {...instancePropsMap, [componentId]: properties};
     context.set('instancePropsMap', newPropsMap);
@@ -60,12 +61,15 @@ export default () => {
     );
 
     return componentIds.map(componentId => {
-      const properties = instancePropsMap[componentId];
+      const instanceProps = instancePropsMap[componentId];
+      const classProps = classPropsMap[instanceProps.componentName];
+      const properties = getProperties(classProps, instanceProps);
       const component = getComponent(properties);
-      if (!component) return null;
+      //if (!component) return null;
 
       const styles = getNonStyles(properties);
-      const className = 'container' + (properties.selected ? ' selected' : '');
+      const className =
+        'container' + (instanceProps.selected ? ' selected' : '');
       const onClick = isEdit ? () => toggleSelected(componentId) : null;
       const onMouseDown = isEdit ? mouseDown : null;
       return (
@@ -132,9 +136,10 @@ export default () => {
       );
     }
     const different = componentId !== selectedComponentId;
-    if (different)
+    if (different) {
       await context.set(`instancePropsMap.${componentId}.selected`, true);
-    context.set(`selectedComponentId`, different ? componentId : 0);
+    }
+    context.set(`selectedComponentId`, different ? componentId : '');
   };
 
   const componentNames = getComponentNames();

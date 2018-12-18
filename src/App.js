@@ -10,7 +10,7 @@ const initialState = {
   mode: 'Edit',
   pageName: '',
   pages: {},
-  propScope: 'Instance',
+  propScope: 'instance',
   selectedComponentId: 0,
   selectedComponentName: '',
   selectedPage: ''

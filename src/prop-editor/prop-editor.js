@@ -5,17 +5,34 @@ import {object} from 'prop-types';
 import React, {useContext} from 'react';
 import './prop-editor.scss';
 
-const scopeButtonList = [{text: 'Class'}, {text: 'Instance'}];
+const scopeButtonList = [
+  {text: 'Class', value: 'class'},
+  {text: 'Instance', value: 'instance'}
+];
 
 function configRow(context, component, key, properties) {
+  const {propScope} = context;
   const {defaultValue, type} = properties;
-  let value = component[key];
+
+  function getClassValue() {
+    const path = `classPropsMap.${component.componentName}.${key}`;
+    return context.get(path);
+  }
+
+  let value;
+  if (propScope === 'instance') {
+    value = component[key];
+    if (value === undefined) value = getClassValue();
+  } else {
+    value = getClassValue();
+  }
   if (value === undefined) value = defaultValue;
 
   const handleChange = async event => {
-    const path = `instancePropsMap.${component.componentId}.${key}`;
-    const v = getEventValue(type, event);
-    await context.set(path, v);
+    const id =
+      propScope === 'class' ? component.componentName : component.componentId;
+    const path = `${propScope}PropsMap.${id}.${key}`;
+    await context.set(path, getEventValue(type, event));
   };
 
   let input;
@@ -59,8 +76,7 @@ function configRow(context, component, key, properties) {
       input = <input type="number" onChange={handleChange} value={value} />;
       break;
     case 'page': {
-      const pages = context.get('pages');
-      const selectedPage = context.get('selectedPage');
+      const {pages, selectedPage} = context;
       const pageNames = Object.keys(pages)
         .filter(page => page !== selectedPage)
         .sort();

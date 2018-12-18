@@ -17,7 +17,7 @@ const config = {
     defaultValue: '#000000'
   },
   fontFamily: {
-    type: 'string', //TODO: multiple-choice?
+    type: 'fontFamily',
     defaultValue: 'sans-serif'
   },
   fontSize: {
