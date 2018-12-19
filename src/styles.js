@@ -1,4 +1,11 @@
-const STYLES = new Set(['backgroundColor', 'color', 'fontFamily', 'fontSize']);
+const STYLES = new Set([
+  'backgroundColor',
+  'color',
+  'fontFamily',
+  'fontSize',
+  'height',
+  'width'
+]);
 
 export const getNonStyles = properties =>
   Object.keys(properties).reduce((obj, key) => {
