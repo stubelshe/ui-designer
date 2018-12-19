@@ -165,7 +165,7 @@ function PropEditor({config}) {
 }
 
 PropEditor.propTypes = {
-  config: object
+  config: object.isRequired
 };
 
 export default PropEditor;

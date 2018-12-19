@@ -41,7 +41,7 @@ function DateDisplay(props) {
 }
 
 DateDisplay.propTypes = {
-  format: string
+  format: string.isRequired
 };
 
 register(DateDisplay, config);

@@ -63,9 +63,9 @@ function NavItem(props) {
 }
 
 NavItem.propTypes = {
-  goToPage: string,
-  kind: string,
-  text: string
+  goToPage: string.isRequired,
+  kind: string.isRequired,
+  text: string.isRequired
 };
 
 register(NavItem, config);

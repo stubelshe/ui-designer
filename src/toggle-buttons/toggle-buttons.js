@@ -1,5 +1,5 @@
 import {EasyContext} from 'context-easy';
-import {arrayOf, string} from 'prop-types';
+import {arrayOf, shape, string} from 'prop-types';
 import React, {useContext} from 'react';
 import './toggle-button.scss';
 
@@ -25,8 +25,8 @@ function ToggleButtons({buttons, path}) {
 }
 
 ToggleButtons.propTypes = {
-  buttons: arrayOf(string),
-  path: string
+  buttons: arrayOf(shape({label: string.isRequired, value: string})).isRequired,
+  path: string.isRequired
 };
 
 export default ToggleButtons;
