@@ -56,7 +56,7 @@ function NavItem(props) {
       {text}
     </button>
   ) : (
-    <a href="#" onClick={navigate}>
+    <a href="#" onClick={navigate} style={styles}>
       {text}
     </a>
   );

@@ -7,7 +7,7 @@ const defaultsMap = {};
 export function clearInstanceProperties(context, componentId) {
   const instanceProps = context.instancePropsMap[componentId];
   const {componentName} = instanceProps;
-  const classProps = context.classPropsMap[componentName];
+  const classProps = context.classPropsMap[componentName] || {};
   const defaults = defaultsMap[componentName];
 
   const config = configMap[componentName];
