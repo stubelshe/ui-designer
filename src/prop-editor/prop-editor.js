@@ -101,15 +101,18 @@ function configRow(context, component, key, properties) {
     case 'text':
       input = <input type="text" onChange={handleChange} value={value} />;
       break;
+    case 'textarea':
+      input = (
+        <textarea onChange={handleChange} value={value} rows={3} cols={30} />
+      );
+      break;
     default:
   }
 
   return (
     <div className="row" key={key}>
-      <label>
-        {formatKey(key)}
-        {input}
-      </label>
+      <label>{formatKey(key)}</label>
+      {input}
     </div>
   );
 }

@@ -27,7 +27,7 @@ const config = {
     defaultValue: 100
   },
   markup: {
-    type: 'text',
+    type: 'textarea',
     defaultValue: ''
   },
   width: {

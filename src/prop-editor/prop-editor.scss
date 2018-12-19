@@ -4,11 +4,6 @@
   background-color: pink;
   padding: $spacing;
 
-  input,
-  select {
-    margin-left: $spacing;
-  }
-
   .prop-scope {
     display: inline-block;
 
@@ -24,8 +19,11 @@
   }
 
   .row {
-    display: flex;
-    align-items: center;
-    height: 36px;
+    margin-bottom: $spacing;
+
+    label {
+      margin-right: 5px;
+      vertical-align: top;
+    }
   }
 }
