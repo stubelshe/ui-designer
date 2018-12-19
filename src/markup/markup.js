@@ -27,7 +27,8 @@ const config = {
     defaultValue: 100
   },
   markup: {
-    type: 'text'
+    type: 'text',
+    defaultValue: ''
   },
   width: {
     type: 'number',
@@ -50,7 +51,7 @@ function Markup(props) {
 }
 
 Markup.propTypes = {
-  markup: string
+  markup: string.isRequired
 };
 
 register(Markup, config);

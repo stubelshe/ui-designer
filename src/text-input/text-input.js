@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-for */
 import {Input} from 'context-easy';
 import {string} from 'prop-types';
 import React from 'react';
@@ -21,18 +22,33 @@ const config = {
     type: 'fontSize',
     defaultValue: 18
   },
+  label: {
+    type: 'text'
+  },
   path: {
     type: 'text'
   }
 };
 
 function TextInput(props) {
-  const {path} = props;
-  return <Input path={path} style={getStyles(props)} />;
+  const {label, path} = props;
+  const input = <Input path={path} style={getStyles(props)} />;
+  return (
+    <div className="text-input">
+      {label ? (
+        <label>
+          {label} {input}
+        </label>
+      ) : (
+        input
+      )}
+    </div>
+  );
 }
 
 TextInput.propTypes = {
-  path: string
+  label: string,
+  path: string.isRequired
 };
 
 register(TextInput, config);

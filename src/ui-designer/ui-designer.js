@@ -90,8 +90,15 @@ export default () => {
 
   // Based on https://javascript.info/mouse-drag-and-drop#drag-n-drop-algorithm
   const mouseDown = event => {
-    const element = event.target;
-    const container = element.parentElement;
+    // Find the container element.
+    let container = event.target;
+    while (true) {
+      const classAttr = container.getAttribute('class');
+      if (classAttr && classAttr.split(' ').includes('container')) break;
+      container = container.parentElement;
+    }
+    const element = container.firstChild;
+
     const {style} = container;
     const page = container.parentElement;
     const pageRect = page.getBoundingClientRect();
