@@ -20,7 +20,7 @@ import ToggleButtons from '../toggle-buttons/toggle-buttons';
 
 import './ui-designer.scss';
 
-const MODES = ['Edit', 'Demo'];
+const MODES = [{label: 'Edit'}, {label: 'Demo'}];
 
 export default () => {
   const context = useContext(EasyContext);

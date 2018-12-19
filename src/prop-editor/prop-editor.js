@@ -1,16 +1,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
-import {EasyContext, RadioButtons} from 'context-easy';
+import {EasyContext} from 'context-easy';
 import {object} from 'prop-types';
 import React, {useContext} from 'react';
 
 import {clearInstanceProperties} from '../library';
+import ToggleButtons from '../toggle-buttons/toggle-buttons';
 
 import './prop-editor.scss';
 
-const scopeButtonList = [
-  {text: 'Class', value: 'class'},
-  {text: 'Instance', value: 'instance'}
+const SCOPES = [
+  {label: 'Class', value: 'class'},
+  {label: 'Instance', value: 'instance'}
 ];
 
 function configRow(context, component, key, properties) {
@@ -35,7 +36,10 @@ function configRow(context, component, key, properties) {
     const id =
       propScope === 'class' ? component.componentName : component.componentId;
     const path = `${propScope}PropsMap.${id}.${key}`;
-    await context.set(path, getEventValue(type, event));
+    console.log('prop-editor.js handleChange: path =', path);
+    const value = getEventValue(type, event);
+    console.log('prop-editor.js handleChange: value =', value);
+    await context.set(path, value);
   };
 
   let input;
@@ -141,21 +145,21 @@ function PropEditor({config}) {
       <div className="prop-scope-row">
         <label>
           Scope
-          <RadioButtons
-            className="prop-scope"
-            list={scopeButtonList}
-            path="propScope"
-          />
+          <ToggleButtons buttons={SCOPES} path="propScope" />
         </label>
       </div>
       {keys.map(key => configRow(context, selectedComponent, key, config[key]))}
-      <div>
-        <button
-          onClick={() => clearInstanceProperties(context, selectedComponentId)}
-        >
-          Clear Instance Properties
-        </button>
-      </div>
+      {context.propScope === 'instance' && (
+        <div>
+          <button
+            onClick={() =>
+              clearInstanceProperties(context, selectedComponentId)
+            }
+          >
+            Clear Instance Properties
+          </button>
+        </div>
+      )}
     </div>
   );
 }
