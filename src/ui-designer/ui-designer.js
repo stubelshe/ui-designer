@@ -10,8 +10,6 @@ import {
   getConfig,
   getProperties
 } from '../library';
-import {getNonStyles} from '../styles';
-
 import '../components';
 
 import Pages from '../pages/pages';
@@ -67,7 +65,7 @@ export default () => {
       const component = getComponent(properties);
       //if (!component) return null;
 
-      const styles = getNonStyles(properties);
+      //const styles = getNonStyles(properties);
       const className =
         'container' + (instanceProps.selected ? ' selected' : '');
       const onClick = isEdit ? () => toggleSelected(componentId) : null;
@@ -80,7 +78,7 @@ export default () => {
           key={componentId}
           onClick={onClick}
           onMouseDown={onMouseDown}
-          style={styles}
+          // style={styles}
         >
           {component}
         </div>
@@ -90,19 +88,38 @@ export default () => {
 
   // Based on https://javascript.info/mouse-drag-and-drop#drag-n-drop-algorithm
   const mouseDown = event => {
+    event.preventDefault(); // necessary for dragging images
+
+    const onMouseMove = event => moveAt(event.pageX, event.pageY);
+    document.addEventListener('mousemove', onMouseMove);
+
+    const element = event.target;
+    console.log('ui-designer.js mouseDown: element =', element);
+    element.onmouseup = () => {
+      console.log('ui-designer.js onmouseup: entered');
+      document.removeEventListener('mousemove', onMouseMove);
+      element.onmouseup = null;
+      const {left, top} = container.style;
+      context.transform('instancePropsMap.' + container.id, properties => ({
+        ...properties,
+        left,
+        top
+      }));
+    };
+
     // Find the container element.
-    let container = event.target;
+    let container = element;
     while (true) {
       const classAttr = container.getAttribute('class');
       if (classAttr && classAttr.split(' ').includes('container')) break;
       container = container.parentElement;
     }
-    const element = container.firstChild;
+    //const element = container.firstChild;
 
     const {style} = container;
     const page = container.parentElement;
     const pageRect = page.getBoundingClientRect();
-    const rect = element.getBoundingClientRect();
+    const rect = container.getBoundingClientRect();
 
     const minX = pageRect.x;
     const minY = pageRect.y;
@@ -120,19 +137,6 @@ export default () => {
       style.left = x + 'px';
       style.top = y + 'px';
     }
-
-    const onMouseMove = event => moveAt(event.pageX, event.pageY);
-    document.addEventListener('mousemove', onMouseMove);
-    element.onmouseup = () => {
-      document.removeEventListener('mousemove', onMouseMove);
-      element.onmouseup = null;
-      const {left, top} = container.style;
-      context.transform('instancePropsMap.' + container.id, properties => ({
-        ...properties,
-        left,
-        top
-      }));
-    };
   };
 
   const toggleSelected = async componentId => {
