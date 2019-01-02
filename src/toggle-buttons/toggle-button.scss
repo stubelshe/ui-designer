@@ -2,14 +2,24 @@
 
 .toggle-buttons {
   display: inline-block;
-
   button {
-    background-color: white;
-    color: black;
-    margin-left: $spacing;
-  }
+    border: 2px solid #5b6770;
+    color: #5b6770;
 
-  button.selected {
-    background-color: lightgreen;
+    &:hover {
+      background-color: #cacaca;
+      color: #5b6770;
+    }
+
+    &.selected {
+      background-color: #5b6770;
+      border: solid 2px #5b6770;
+      color: white;
+
+      &:hover {
+        background-color: #3a3a3a;
+        color: white;
+      }
+    }
   }
 }

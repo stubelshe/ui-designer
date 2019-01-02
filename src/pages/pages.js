@@ -74,7 +74,7 @@ export default () => {
         >
           <span onClick={() => selectPage(name)}>{name}</span>
           <button className="delete-btn" onClick={() => deletePage(name)}>
-            X
+            &times;
           </button>
         </div>
       ))}

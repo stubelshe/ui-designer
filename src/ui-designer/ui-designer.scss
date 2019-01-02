@@ -7,24 +7,29 @@
   width: 100vw;
 
   header {
-    border-bottom: solid gray 3px;
+    border-bottom: solid #cccccc 1px;
     padding: 0 $spacing $spacing $spacing;
 
-    h2 {
+    .logo {
+      margin-top: $spacing;
+      float: left;
+    }
+
+    .mode {
+      float: right;
       margin-top: $spacing;
     }
   }
 
   .component-display {
-    background-color: linen;
     flex-grow: 1;
 
     // The components
     & > * {
       display: inline-block;
       position: absolute;
-      left: 200px;
-      top: 150px;
+      left: 225px; // initial position
+      top: 200px; // initial position
     }
 
     &.edit .container {
@@ -37,17 +42,21 @@
   }
 
   .component-select {
-    background-color: lightblue;
+    background-color: #f4f4f4;
+    box-shadow: 0 3px 3px #ddd;
     display: flex;
     align-items: center;
-    padding: $spacing;
+    padding: $spacing * 2 $spacing;
+    position: relative;
+    z-index: 1;
 
     button {
       margin-left: $spacing;
     }
-
     select {
-      font-size: 18px;
+      font-size: 14px;
+      height: 28px;
+      min-width: 150px;
     }
   }
 

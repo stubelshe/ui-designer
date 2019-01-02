@@ -65,7 +65,6 @@ export default () => {
       const component = getComponent(properties);
       //if (!component) return null;
 
-      //const styles = getNonStyles(properties);
       const className =
         'container' + (instanceProps.selected ? ' selected' : '');
       const onClick = isEdit ? () => toggleSelected(componentId) : null;
@@ -78,7 +77,6 @@ export default () => {
           key={componentId}
           onClick={onClick}
           onMouseDown={onMouseDown}
-          // style={styles}
         >
           {component}
         </div>
@@ -90,13 +88,19 @@ export default () => {
   const mouseDown = event => {
     event.preventDefault(); // necessary for dragging images
 
+    function moveAt(pageX, pageY) {
+      const x = pageX - shiftX;
+      const y = pageY - shiftY;
+      if (x < minX || x > maxX || y < minY || y > maxY) return;
+
+      style.left = x + 'px';
+      style.top = y + 'px';
+    }
     const onMouseMove = event => moveAt(event.pageX, event.pageY);
     document.addEventListener('mousemove', onMouseMove);
 
     const element = event.target;
-    console.log('ui-designer.js mouseDown: element =', element);
     element.onmouseup = () => {
-      console.log('ui-designer.js onmouseup: entered');
       document.removeEventListener('mousemove', onMouseMove);
       element.onmouseup = null;
       const {left, top} = container.style;
@@ -114,7 +118,6 @@ export default () => {
       if (classAttr && classAttr.split(' ').includes('container')) break;
       container = container.parentElement;
     }
-    //const element = container.firstChild;
 
     const {style} = container;
     const page = container.parentElement;
@@ -128,15 +131,6 @@ export default () => {
 
     const shiftX = event.pageX - rect.left;
     const shiftY = event.pageY - rect.top;
-
-    function moveAt(pageX, pageY) {
-      const x = pageX - shiftX;
-      const y = pageY - shiftY;
-      if (x < minX || x > maxX || y < minY || y > maxY) return;
-
-      style.left = x + 'px';
-      style.top = y + 'px';
-    }
   };
 
   const toggleSelected = async componentId => {

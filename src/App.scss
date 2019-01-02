@@ -6,20 +6,43 @@ body {
 }
 
 button {
+  background-color: white;
+  border: 2px solid #ff7e00;
   border-radius: 4px;
+  color: #ff7e00;
+  font-size: 11px;
   font-weight: bold;
-  padding: 4px $spacing;
+  margin-left: $spacing;
+  padding: 5px $spacing;
+  transition: all 0.2s ease-in-out;
 
   &:disabled {
     background-color: lightgray;
     color: white;
   }
+
+  &:hover {
+    background-color: #ff7e00;
+    color: white;
+  }
+
+  &.large {
+    font-size: 14px;
+    padding: 12px $spacing;
+  }
 }
 
-input, textarea {
+input,
+textarea {
   border: solid lightgray 1px;
   border-radius: 4px;
   padding: 4px;
+}
+
+input[type='color'] {
+  padding: 0;
+  border-radius: 0;
+  border: none;
 }
 
 label {

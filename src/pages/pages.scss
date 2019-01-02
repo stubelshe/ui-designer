@@ -1,15 +1,12 @@
 @import '../share.scss';
 
 .pages {
-  padding: $spacing;
+  background-color: #fdfcfc;
+  border-right: 1px solid #e7e5e0;
+  padding: $spacing * 2.5 $spacing $spacing $spacing;
 
   button {
     margin-left: $spacing;
-  }
-
-  .delete-btn {
-    border: none;
-    color: red;
   }
 
   h3 {
@@ -18,19 +15,60 @@
   }
 
   .new-page {
-    margin-bottom: $spacing;
+    margin-bottom: $spacing * 2;
+
+    .add-btn {
+      height: 32px;
+      font-size: 16px;
+    }
+
+    input[type='text'] {
+      height: 22px;
+    }
   }
 
   .page {
-    border-top: solid lightgray 1px;
+    border-top: solid #e7e5e0 1px;
     display: flex;
     justify-content: space-between;
-    margin-top: 5px;
-    padding-top: 5px;
+    margin: 0 (-$spacing);
+    padding: $spacing * 1.5 $spacing;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background-color: #f4f4f4;
+
+      .delete-btn {
+        display: block;
+      }
+    }
 
     &.selected {
-      color: green;
-      font-weight: bold;
+      background-color: #ff7e00;
+      color: white;
+
+      &:hover {
+        background-color: #ff7e00;
+      }
+
+      .delete-btn {
+        background-color: white;
+        color: #ff7e00;
+      }
+    }
+
+    .delete-btn {
+      background-color: #ff7e00;
+      border-radius: 20px;
+      border: none;
+      color: white;
+      cursor: pointer;
+      display: none;
+      font-size: 14px;
+      height: 18px;
+      line-height: 0;
+      padding: 0;
+      width: 18px;
     }
   }
 }

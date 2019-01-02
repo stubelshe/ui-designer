@@ -10,8 +10,8 @@ import ToggleButtons from '../toggle-buttons/toggle-buttons';
 import './prop-editor.scss';
 
 const SCOPES = [
-  {label: 'Class', value: 'class'},
-  {label: 'Instance', value: 'instance'}
+  {label: 'All', value: 'class'},
+  {label: 'Single', value: 'instance'}
 ];
 
 function configRow(context, component, key, properties) {
@@ -145,15 +145,14 @@ function PropEditor({config}) {
   return (
     <div className="prop-editor">
       <div className="prop-scope-row">
-        <label>
-          Scope
-          <ToggleButtons buttons={SCOPES} path="propScope" />
-        </label>
+        <label>Target</label>
+        <ToggleButtons buttons={SCOPES} path="propScope" />
       </div>
       {keys.map(key => configRow(context, selectedComponent, key, config[key]))}
       {context.propScope === 'instance' && (
         <div>
           <button
+            className="clear large"
             onClick={() =>
               clearInstanceProperties(context, selectedComponentId)
             }

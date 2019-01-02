@@ -29,11 +29,7 @@ function Image(props) {
   const style = getStyles(props);
   style.height = zoom + '%';
   style.width = zoom + '%';
-  return (
-    <div className="image">
-      <img alt={alt} src={url} style={style} />
-    </div>
-  );
+  return <img className="image" alt={alt} src={url} style={style} />;
 }
 
 Image.propTypes = {
