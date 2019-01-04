@@ -37,7 +37,6 @@ function configRow(context, component, key, properties) {
       propScope === 'class' ? component.componentName : component.componentId;
     const path = `${propScope}PropsMap.${id}.${key}`;
     const value = getEventValue(type, event);
-    console.log('prop-editor.js handleChange: value =', value);
     await context.set(path, value);
   };
 
