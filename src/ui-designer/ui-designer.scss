@@ -17,19 +17,6 @@
       float: left;
     }
   }
-  .mode {
-    float: right;
-
-    button {
-      background-color: #cccccc;
-      border: none;
-
-      &.selected {
-        background-color: #5b6770;
-        color: white;
-      }
-    }
-  }
 
   .component-display {
     flex-grow: 1;
@@ -39,7 +26,7 @@
       display: inline-block;
       position: absolute;
       left: 225px; // initial position
-      top: 200px; // initial position
+      top: 130px; // initial position
     }
 
     &.edit .container {
@@ -74,5 +61,23 @@
   .main {
     display: flex;
     flex-grow: 1;
+
+    .middle {
+      flex-grow: 1;
+    }
+  }
+
+  .mode {
+    float: right;
+
+    button {
+      background-color: #cccccc;
+      border: none;
+
+      &.selected {
+        background-color: #5b6770;
+        color: white;
+      }
+    }
   }
 }

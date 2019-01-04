@@ -159,27 +159,29 @@ export default () => {
           </label>
         </div>
       </header>
-      {isEdit && (
-        <section className="component-select">
-          <Select path="selectedComponentName">
-            <option value="" />
-            {componentNames.map((name, index) => (
-              <option key={'option' + index}>{name}</option>
-            ))}
-          </Select>
-          <button
-            disabled={!selectedPage || !selectedComponentName}
-            onClick={addComponent}
-          >
-            Add
-          </button>
-        </section>
-      )}
       <section className="main">
         {isEdit && <Pages />}
-        <section className={'component-display' + (isEdit ? ' edit' : '')}>
-          {getComponents(instancePropsMap)}
-        </section>
+        <div className="middle">
+          {isEdit && (
+            <section className="component-select">
+              <Select path="selectedComponentName">
+                <option value="" />
+                {componentNames.map((name, index) => (
+                  <option key={'option' + index}>{name}</option>
+                ))}
+              </Select>
+              <button
+                disabled={!selectedPage || !selectedComponentName}
+                onClick={addComponent}
+              >
+                Add
+              </button>
+            </section>
+          )}
+          <section className={'component-display' + (isEdit ? ' edit' : '')}>
+            {getComponents(instancePropsMap)}
+          </section>
+        </div>
         {isEdit && selectedComponentId ? <PropEditor config={config} /> : null}
       </section>
       <footer />
