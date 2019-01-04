@@ -69,6 +69,7 @@ export default () => {
         'container' + (instanceProps.selected ? ' selected' : '');
       const onClick = isEdit ? () => toggleSelected(componentId) : null;
       const onMouseDown = isEdit ? mouseDown : null;
+      const style = {left: properties.left, top: properties.top};
       return (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events
         <div
@@ -77,6 +78,7 @@ export default () => {
           key={componentId}
           onClick={onClick}
           onMouseDown={onMouseDown}
+          style={style}
         >
           {component}
         </div>
