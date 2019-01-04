@@ -18,11 +18,13 @@ button {
 
   &:disabled {
     background-color: lightgray;
+    border: 2px solid lightgray;
     color: white;
   }
 
   &:hover {
     background-color: #ff7e00;
+    border: 2px solid #ff7e00;
     color: white;
   }
 

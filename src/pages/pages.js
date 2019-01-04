@@ -58,10 +58,9 @@ export default () => {
 
   return (
     <div className="pages">
-      <h3>Pages</h3>
       <div className="new-page">
         <form onSubmit={handleSubmit}>
-          <Input path="pageName" />
+          <Input path="pageName" placeholder="Page Name" />
           <button className="add-btn" onClick={addPage}>
             +
           </button>

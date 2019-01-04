@@ -7,17 +7,27 @@
   width: 100vw;
 
   header {
-    border-bottom: solid #cccccc 1px;
-    padding: 0 $spacing $spacing $spacing;
+    background-color: #f4f4f4;
+    box-shadow: 0 3px 3px #ddd;
+    padding: $spacing;
+    z-index: 0;
 
     .logo {
-      margin-top: $spacing;
+      width: 125px;
       float: left;
     }
+  }
+  .mode {
+    float: right;
 
-    .mode {
-      float: right;
-      margin-top: $spacing;
+    button {
+      background-color: #cccccc;
+      border: none;
+
+      &.selected {
+        background-color: #5b6770;
+        color: white;
+      }
     }
   }
 
@@ -33,26 +43,27 @@
     }
 
     &.edit .container {
-      outline: solid red 3px;
+      outline: solid #e7e5e0 1px;
 
       &.selected {
-        outline-color: green;
+        outline: solid #ff7e00 3px;
       }
     }
   }
 
   .component-select {
-    background-color: #f4f4f4;
-    box-shadow: 0 3px 3px #ddd;
-    display: flex;
     align-items: center;
-    padding: $spacing * 2 $spacing;
-    position: relative;
-    z-index: 1;
+    border-bottom: solid #e7e5e0 1px;
+    padding: $spacing * 1.5 $spacing;
+
+    .add {
+      float: left;
+    }
 
     button {
       margin-left: $spacing;
     }
+
     select {
       font-size: 14px;
       height: 28px;

@@ -152,10 +152,9 @@ export default () => {
   return (
     <div className="ui-designer">
       <header>
-        <h2>UI Designer</h2>
-        <div>
+        <img alt="logo" className="logo" src="logo.png" />
+        <div className="mode">
           <label>
-            Mode
             <ToggleButtons buttons={MODES} path="mode" />
           </label>
         </div>
