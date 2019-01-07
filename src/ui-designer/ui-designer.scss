@@ -41,7 +41,7 @@
   .component-select {
     align-items: center;
     border-bottom: solid #e7e5e0 1px;
-    padding: $spacing * 1.5 $spacing;
+    padding: $spacing * 1.5 $spacing * 2;
 
     .add {
       float: left;
@@ -51,10 +51,24 @@
       margin-left: $spacing;
     }
 
+    .page {
+      color: #5b6770;
+      float: left;
+      font-size: 20px;
+      font-style: italic;
+      font-weight: 100;
+      line-height: 28px;
+    }
+
     select {
-      font-size: 14px;
+      font-size: 12px;
       height: 28px;
       min-width: 150px;
+      border: solid lightgray 1px;
+    }
+
+    .selector {
+      float: right;
     }
   }
 
@@ -75,6 +89,7 @@
     button {
       background-color: #cccccc;
       border: none;
+      margin-left: $spacing;
 
       &.selected {
         background-color: #5b6770;

@@ -3,9 +3,8 @@
 .prop-editor {
   background-color: #f4f4f4;
   border-left: 1px solid #e7e5e0;
-  padding: 25px $spacing $spacing $spacing;
+  padding: 35px $spacing $spacing $spacing;
   width: 200px;
-
   .clear {
     margin-left: 0;
     margin-top: 20px;
@@ -21,8 +20,13 @@
 
   .prop-scope-row {
     border-bottom: solid #ccc 1px;
-    margin: (0) (-$spacing) ($spacing*2) (-$spacing);
+    margin: (0) (-$spacing) ($spacing * 2) (-$spacing);
     padding: 0 10px 5px 10px;
+
+    label {
+      color: #5b6770;
+      font-size: 15px;
+    }
 
     .toggle-buttons {
       float: right;
@@ -44,13 +48,27 @@
   }
 
   .row {
-    margin-bottom: $spacing * 2;
+    margin-bottom: $spacing * 1.5;
+
+    input[type='text'],
+    input[type='number'],
+    textarea {
+      width: 100%;
+      box-sizing: border-box;
+    }
 
     label {
-      font-size: 13px;
+      display: block;
+      font-size: 11px;
       line-height: 22px;
       margin-right: 5px;
-      vertical-align: top;
+    }
+
+    select {
+      border: solid lightgray 1px;
+      font-size: 11px;
+      height: 23px;
+      min-width: 150px;
     }
   }
 }

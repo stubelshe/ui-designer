@@ -3,7 +3,9 @@
 .pages {
   background-color: #fdfcfc;
   border-right: 1px solid #e7e5e0;
-  padding: $spacing;
+  box-sizing: border-box;
+  padding: $spacing * 1.5 $spacing;
+  width: 200px;
 
   button {
     margin-left: $spacing;
@@ -15,7 +17,7 @@
   }
 
   .new-page {
-    margin-bottom: 16px;
+    margin-bottom: $spacing * 1.5;
 
     form {
       display: flex;
@@ -23,21 +25,31 @@
     }
 
     .add-btn {
-      height: 32px;
       font-size: 16px;
+      height: 28px;
+      padding: 0;
+      width: 28px;
     }
 
     input[type='text'] {
-      height: 22px;
+      color: black;
+      font-size: 12px;
+      height: 18px;
+      width: 132px;
     }
   }
 
   .page {
     border-top: solid #e7e5e0 1px;
+    color: #5b6770;
     display: flex;
+    font-size: 12px;
     justify-content: space-between;
+    line-height: 16px;
     margin: 0 (-$spacing);
-    padding: $spacing * 1.5 $spacing;
+    padding: $spacing * 2 $spacing * 3.5 $spacing * 2 $spacing;
+    position: relative;
+    text-transform: uppercase;
     transition: all 0.2s ease-in-out;
 
     &:hover {
@@ -73,7 +85,11 @@
       font-size: 14px;
       height: 18px;
       line-height: 0;
+      margin-top: -10px;
       padding: 0;
+      position: absolute;
+      right: $spacing;
+      top: 50%;
       width: 18px;
     }
   }

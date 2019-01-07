@@ -68,10 +68,11 @@ export default () => {
       </div>
       {pageNames.map((name, index) => (
         <div
-          className={'page ' + (name === selectedPage ? ' selected' : '')}
+          className={'page' + (name === selectedPage ? ' selected' : '')}
           key={'page' + index}
+          onClick={() => selectPage(name)}
         >
-          <span onClick={() => selectPage(name)}>{name}</span>
+          <span>{name}</span>
           <button className="delete-btn" onClick={() => deletePage(name)}>
             &times;
           </button>

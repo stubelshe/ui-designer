@@ -166,18 +166,21 @@ export default () => {
         <div className="middle">
           {isEdit && (
             <section className="component-select">
-              <Select path="selectedComponentName">
-                <option value="" />
-                {componentNames.map((name, index) => (
-                  <option key={'option' + index}>{name}</option>
-                ))}
-              </Select>
-              <button
-                disabled={!selectedPage || !selectedComponentName}
-                onClick={addComponent}
-              >
-                Add
-              </button>
+              <div className="page">{selectedPage}</div>
+              <div className="selector">
+                <Select path="selectedComponentName">
+                  <option value="" />
+                  {componentNames.map((name, index) => (
+                    <option key={'option' + index}>{name}</option>
+                  ))}
+                </Select>
+                <button
+                  disabled={!selectedPage || !selectedComponentName}
+                  onClick={addComponent}
+                >
+                  Add
+                </button>
+              </div>
             </section>
           )}
           <section className={'component-display' + (isEdit ? ' edit' : '')}>
