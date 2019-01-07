@@ -9,12 +9,25 @@
   header {
     background-color: #f4f4f4;
     box-shadow: 0 3px 3px #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: $spacing;
     z-index: 0;
 
+    button {
+      background-color: #cccccc;
+      border: none;
+      margin-left: $spacing;
+
+      &.selected {
+        background-color: #5b6770;
+        color: white;
+      }
+    }
+
     .logo {
-      width: 125px;
-      float: left;
+      height: 30px;
     }
   }
 
@@ -39,13 +52,11 @@
   }
 
   .component-select {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     border-bottom: solid #e7e5e0 1px;
     padding: $spacing * 1.5 $spacing * 2;
-
-    .add {
-      float: left;
-    }
 
     button {
       margin-left: $spacing;
@@ -53,7 +64,6 @@
 
     .page {
       color: #5b6770;
-      float: left;
       font-size: 20px;
       font-style: italic;
       font-weight: 100;
@@ -66,10 +76,6 @@
       min-width: 150px;
       border: solid lightgray 1px;
     }
-
-    .selector {
-      float: right;
-    }
   }
 
   .main {
@@ -80,21 +86,6 @@
       display: flex;
       flex-direction: column;
       flex-grow: 1;
-    }
-  }
-
-  .mode {
-    float: right;
-
-    button {
-      background-color: #cccccc;
-      border: none;
-      margin-left: $spacing;
-
-      &.selected {
-        background-color: #5b6770;
-        color: white;
-      }
     }
   }
 }

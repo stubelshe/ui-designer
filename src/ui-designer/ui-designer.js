@@ -155,11 +155,7 @@ export default () => {
     <div className="ui-designer">
       <header>
         <img alt="logo" className="logo" src="logo.png" />
-        <div className="mode">
-          <label>
-            <ToggleButtons buttons={MODES} path="mode" />
-          </label>
-        </div>
+        <ToggleButtons buttons={MODES} path="mode" />
       </header>
       <section className="main">
         {isEdit && <Pages />}

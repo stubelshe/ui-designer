@@ -3,7 +3,7 @@
 .prop-editor {
   background-color: #f4f4f4;
   border-left: 1px solid #e7e5e0;
-  padding: 35px $spacing $spacing $spacing;
+  padding: 30px $spacing $spacing $spacing;
   width: 200px;
   .clear {
     margin-left: 0;
@@ -20,8 +20,10 @@
 
   .prop-scope-row {
     border-bottom: solid #ccc 1px;
+    display: flex;
+    justify-content: space-between;
     margin: (0) (-$spacing) ($spacing * 2) (-$spacing);
-    padding: 0 10px 5px 10px;
+    padding: 0 10px;
 
     label {
       color: #5b6770;
@@ -29,9 +31,6 @@
     }
 
     .toggle-buttons {
-      float: right;
-      margin-top: -4px;
-
       button {
         border: 1px solid #cccccc;
         border-radius: 4px 4px 0 0;
