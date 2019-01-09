@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
+//TODO: This component is getting too big!  Break it up!
 import {EasyContext, Input, Select} from 'context-easy';
 import React, {useContext} from 'react';
 import {
@@ -210,7 +211,6 @@ export default () => {
                   )}
                 </div>
                 <button onClick={editPageName}>&#x270E;</button>
-                <button onClick={editPageName}>&#x1f5d1;</button>
               </div>
               <div className="selector">
                 <Select path="selectedComponentName">
