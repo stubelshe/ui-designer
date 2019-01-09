@@ -50,7 +50,8 @@ export default () => {
     };
 
     const newPropsMap = {...instancePropsMap, [componentId]: properties};
-    context.set('instancePropsMap', newPropsMap);
+    await context.set('instancePropsMap', newPropsMap);
+    toggleSelected(componentId);
   };
 
   const getComponents = instancePropsMap => {
