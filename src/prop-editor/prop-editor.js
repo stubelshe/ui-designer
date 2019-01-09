@@ -141,6 +141,10 @@ function PropEditor({config}) {
   const {instancePropsMap, selectedComponentId} = context;
   const selectedComponent = instancePropsMap[selectedComponentId];
 
+  const deleteComponent = () => {
+    console.log('prop-editor.js deleteComponent: entered');
+  };
+
   return (
     <div className="prop-editor">
       <div className="prop-scope-row">
@@ -157,6 +161,9 @@ function PropEditor({config}) {
             }
           >
             Clear Instance Properties
+          </button>
+          <button className="delete" onClick={deleteComponent}>
+            &#x1f5d1;
           </button>
         </div>
       )}

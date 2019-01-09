@@ -5,9 +5,17 @@
   border-left: 1px solid #e7e5e0;
   padding: 30px $spacing $spacing $spacing;
   width: 200px;
+
   .clear {
-    margin-left: 0;
-    margin-top: 20px;
+    margin-top: $spacing;
+  }
+
+  .delete {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    margin-top: $spacing;
+    padding: 0;
   }
 
   .prop-scope {
@@ -47,7 +55,7 @@
   }
 
   .row {
-    margin-bottom: $spacing * 1.5;
+    margin-bottom: $spacing;
 
     input[type='text'],
     input[type='number'],
