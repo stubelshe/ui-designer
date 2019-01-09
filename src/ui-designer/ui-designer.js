@@ -28,6 +28,7 @@ export default () => {
     instancePropsMap,
     lastComponentId,
     mode,
+    pages,
     selectedComponentName,
     selectedComponentId,
     selectedPage
@@ -155,6 +156,20 @@ export default () => {
     const shiftY = event.pageY - rect.top;
   };
 
+  const savePageName = async event => {
+    if (event.key !== 'Enter') return;
+
+    const {value} = event.target;
+    if (pages[value]) {
+      console.log('ui-designer.js savePageName: already exists');
+    } else {
+      const page = pages[selectedPage];
+      await context.delete('pages.' + selectedPage);
+      await context.set('pages.' + value, page);
+      await context.set('editingPageName', false);
+    }
+  };
+
   const toggleSelected = async componentId => {
     if (selectedComponentId) {
       await context.set(
@@ -185,12 +200,17 @@ export default () => {
               <div className="page-area">
                 <div className="page">
                   {editingPageName ? (
-                    <Input path="newPageName" />
+                    <Input
+                      path="newPageName"
+                      onBlur={savePageName}
+                      onKeyPress={savePageName}
+                    />
                   ) : (
                     selectedPage
                   )}
                 </div>
                 <button onClick={editPageName}>&#x270E;</button>
+                <button onClick={editPageName}>&#x1f5d1;</button>
               </div>
               <div className="selector">
                 <Select path="selectedComponentName">
