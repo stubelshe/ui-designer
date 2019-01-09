@@ -92,7 +92,6 @@ export default () => {
     event.preventDefault(); // necessary for dragging images
 
     function moveAt(pageX, pageY) {
-      console.log('ui-designer.js mouseDown: got mousemove');
       const x = pageX - shiftX;
       const y = pageY - shiftY;
       if (x < minX || x > maxX || y < minY || y > maxY) return;

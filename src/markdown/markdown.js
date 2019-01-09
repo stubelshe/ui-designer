@@ -6,7 +6,7 @@ import React, {useContext} from 'react';
 import {register} from '../library';
 import {getStyles} from '../styles';
 
-import './markup.scss';
+import './markdown.scss';
 
 const config = {
   backgroundColor: {
@@ -29,7 +29,7 @@ const config = {
     type: 'number',
     defaultValue: 100
   },
-  markup: {
+  markdown: {
     type: 'textarea',
     defaultValue: ''
   },
@@ -39,28 +39,28 @@ const config = {
   }
 };
 
-function Markup(props) {
-  const {markup} = props;
+function Markdown(props) {
+  const {markdown} = props;
   const context = useContext(EasyContext);
 
-  // Replace placeholders in markup with context values.
+  // Replace placeholders in markdown with context values.
   const re = /\$\{([^}]+)\}/;
-  const parts = markup
+  const parts = markdown
     .split(re)
     .map((part, index) => (index % 2 === 0 ? part : context.get(part)));
   const text = parts.join('');
 
   return (
     <div
-      className="markup"
+      className="markdown"
       dangerouslySetInnerHTML={{__html: marked(text)}}
       style={getStyles(props)}
     />
   );
 }
 
-Markup.propTypes = {
-  markup: string.isRequired
+Markdown.propTypes = {
+  markdown: string.isRequired
 };
 
-register(Markup, config);
+register(Markdown, config);
