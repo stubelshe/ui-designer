@@ -1,10 +1,13 @@
 .markdown {
+  min-height: 50px;
+  min-width: 50px;
   padding: 0 5px;
 
+  /*
   img {
-    outline: solid blue 1px; // for debugging
     max-width: 100%;
   }
+  */
 
   p, ul {
     margin: 5px 0;

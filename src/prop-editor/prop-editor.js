@@ -152,6 +152,7 @@ function PropEditor({config}) {
         <label>Target</label>
         <ToggleButtons buttons={SCOPES} path="propScope" />
       </div>
+      <div className="component-name">{selectedComponent.componentName}</div>
       {keys.map(key => configRow(context, selectedComponent, key, config[key]))}
       {context.propScope === 'instance' && (
         <div>

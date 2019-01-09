@@ -6,8 +6,9 @@
   padding: 30px $spacing $spacing $spacing;
   width: 200px;
 
-  .clear {
-    margin-top: $spacing;
+  .component-name {
+    font-weight: bold;
+    margin-bottom: $spacing;
   }
 
   .delete {
