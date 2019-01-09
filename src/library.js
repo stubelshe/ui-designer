@@ -47,3 +47,18 @@ export function register(component, config) {
     return acc;
   }, {});
 }
+
+export async function toggleSelected(context, componentId) {
+  const {selectedComponentId} = context;
+  if (selectedComponentId) {
+    await context.set(
+      `instancePropsMap.${selectedComponentId}.selected`,
+      false
+    );
+  }
+  const different = componentId !== selectedComponentId;
+  if (different) {
+    await context.set(`instancePropsMap.${componentId}.selected`, true);
+  }
+  context.set(`selectedComponentId`, different ? componentId : '');
+}

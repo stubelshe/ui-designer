@@ -2,17 +2,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
-//TODO: This component is getting too big!  Break it up!
-import {EasyContext, Input, Select} from 'context-easy';
+import {EasyContext} from 'context-easy';
 import React, {useContext} from 'react';
+
+import '../components';
 import {
   getComponent,
-  getComponentNames,
   getConfig,
-  getProperties
+  getProperties,
+  toggleSelected
 } from '../library';
-import '../components';
-
+import ComponentSelect from '../component-select/component-select';
 import Pages from '../pages/pages';
 import PropEditor from '../prop-editor/prop-editor';
 import ToggleButtons from '../toggle-buttons/toggle-buttons';
@@ -25,12 +25,8 @@ export default () => {
   const context = useContext(EasyContext);
   const {
     classPropsMap,
-    editingPageName,
     instancePropsMap,
-    lastComponentId,
     mode,
-    pages,
-    selectedComponentName,
     selectedComponentId,
     selectedPage
   } = context;
@@ -41,26 +37,6 @@ export default () => {
   const config = selectedComponent
     ? getConfig(selectedComponent.componentName)
     : {};
-
-  const addComponent = async () => {
-    const componentId = 'c' + (lastComponentId + 1);
-    await context.increment('lastComponentId');
-
-    const properties = {
-      componentId,
-      componentName: selectedComponentName,
-      onPage: selectedPage
-    };
-
-    const newPropsMap = {...instancePropsMap, [componentId]: properties};
-    await context.set('instancePropsMap', newPropsMap);
-    toggleSelected(componentId);
-  };
-
-  const editPageName = async () => {
-    await context.transform('editingPageName', editing => !editing);
-    await context.set('newPageName', selectedPage);
-  };
 
   const getComponents = instancePropsMap => {
     // Get an array of component ids on the selected page.
@@ -121,7 +97,7 @@ export default () => {
       // toggle whether the component is selected.
       const upTimestamp = event.timeStamp;
       const deltaTime = upTimestamp - downTimestamp;
-      if (deltaTime < 300) toggleSelected(container.id);
+      if (deltaTime < 300) toggleSelected(context, container.id);
 
       document.removeEventListener('mousemove', onMouseMove);
       middle.removeEventListener('mouseout', removeMouseMoveListener);
@@ -157,36 +133,6 @@ export default () => {
     const shiftY = event.pageY - rect.top;
   };
 
-  const savePageName = async event => {
-    if (event.key !== 'Enter') return;
-
-    const {value} = event.target;
-    if (pages[value]) {
-      console.log('ui-designer.js savePageName: already exists');
-    } else {
-      const page = pages[selectedPage];
-      await context.delete('pages.' + selectedPage);
-      await context.set('pages.' + value, page);
-      await context.set('editingPageName', false);
-    }
-  };
-
-  const toggleSelected = async componentId => {
-    if (selectedComponentId) {
-      await context.set(
-        `instancePropsMap.${selectedComponentId}.selected`,
-        false
-      );
-    }
-    const different = componentId !== selectedComponentId;
-    if (different) {
-      await context.set(`instancePropsMap.${componentId}.selected`, true);
-    }
-    context.set(`selectedComponentId`, different ? componentId : '');
-  };
-
-  const componentNames = getComponentNames();
-
   return (
     <div className="ui-designer">
       <header>
@@ -196,38 +142,7 @@ export default () => {
       <section className="main">
         {isEdit && <Pages />}
         <div className="middle">
-          {isEdit && (
-            <section className="component-select">
-              <div className="page-area">
-                <div className="page">
-                  {editingPageName ? (
-                    <Input
-                      path="newPageName"
-                      onBlur={savePageName}
-                      onKeyPress={savePageName}
-                    />
-                  ) : (
-                    selectedPage
-                  )}
-                </div>
-                <button onClick={editPageName}>&#x270E;</button>
-              </div>
-              <div className="selector">
-                <Select path="selectedComponentName">
-                  <option value="" />
-                  {componentNames.map((name, index) => (
-                    <option key={'option' + index}>{name}</option>
-                  ))}
-                </Select>
-                <button
-                  disabled={!selectedPage || !selectedComponentName}
-                  onClick={addComponent}
-                >
-                  Add
-                </button>
-              </div>
-            </section>
-          )}
+          {isEdit && <ComponentSelect />}
           <section className={'component-display' + (isEdit ? ' edit' : '')}>
             {getComponents(instancePropsMap)}
           </section>

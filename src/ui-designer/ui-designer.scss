@@ -51,46 +51,6 @@
     }
   }
 
-  .component-select {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: solid #e7e5e0 1px;
-    padding: $spacing * 1.5 $spacing * 2;
-
-    button {
-      margin-left: $spacing;
-    }
-
-    .page-area {
-      display: flex;
-      align-items: center;
-
-      button {
-        background-color: transparent;
-        border: none;
-        font-size: 20px;
-        padding: 0;
-      }
-
-      .page {
-        color: #5b6770;
-        display: inline-block;
-        font-size: 20px;
-        font-style: italic;
-        font-weight: 100;
-        line-height: 28px;
-      }
-    }
-
-    select {
-      font-size: 12px;
-      height: 28px;
-      min-width: 150px;
-      border: solid lightgray 1px;
-    }
-  }
-
   .main {
     display: flex;
     flex-grow: 1;
