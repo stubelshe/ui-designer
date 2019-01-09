@@ -15,7 +15,7 @@ const config = {
   },
   color: {
     type: 'color',
-    defaultValue: '#0000FF'
+    defaultValue: '#000000'
   },
   fontFamily: {
     type: 'fontFamily',
@@ -25,17 +25,9 @@ const config = {
     type: 'fontSize',
     defaultValue: 18
   },
-  height: {
-    type: 'number',
-    defaultValue: 100
-  },
   markdown: {
     type: 'textarea',
     defaultValue: ''
-  },
-  width: {
-    type: 'number',
-    defaultValue: 200
   }
 };
 
