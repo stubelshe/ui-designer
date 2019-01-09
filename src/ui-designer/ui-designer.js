@@ -32,6 +32,7 @@ export default () => {
     selectedPage
   } = context;
 
+  const middle = document.querySelector('.middle');
   const isEdit = mode === 'Edit';
   const selectedComponent = instancePropsMap[selectedComponentId];
   const config = selectedComponent
@@ -88,8 +89,11 @@ export default () => {
 
   // Based on https://javascript.info/mouse-drag-and-drop#drag-n-drop-algorithm
   const mouseDown = event => {
-    console.log('ui-designer.js mouseDown: got mousedown');
     event.preventDefault(); // necessary for dragging images
+
+    const removeMouseMoveListener = () =>
+      document.removeEventListener('mousemove', onMouseMove);
+    middle.addEventListener('mouseout', removeMouseMoveListener);
 
     function moveAt(pageX, pageY) {
       const x = pageX - shiftX;
@@ -99,14 +103,16 @@ export default () => {
       style.left = x + 'px';
       style.top = y + 'px';
     }
+
     const onMouseMove = event => moveAt(event.pageX, event.pageY);
     document.addEventListener('mousemove', onMouseMove);
 
     const element = event.target;
     element.onmouseup = () => {
-      console.log('ui-designer.js mouseDown: got mouseup');
       document.removeEventListener('mousemove', onMouseMove);
+      middle.removeEventListener('mouseout', removeMouseMoveListener);
       element.onmouseup = null;
+
       const {left, top} = container.style;
       context.transform('instancePropsMap.' + container.id, properties => ({
         ...properties,
