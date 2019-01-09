@@ -12,14 +12,14 @@ const initialState = {
   pages: {},
   propScope: 'instance',
   selectedComponentId: 0,
-  selectedComponentName: '',
+  selectedComponentName: '', // from dropdown
   selectedPage: ''
 };
 
 class App extends Component {
   render() {
     return (
-      <EasyProvider initialState={initialState} validate>
+      <EasyProvider initialState={initialState} log validate>
         <div className="App">
           <UIDesigner />
         </div>

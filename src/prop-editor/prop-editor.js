@@ -141,8 +141,9 @@ function PropEditor({config}) {
   const {instancePropsMap, selectedComponentId} = context;
   const selectedComponent = instancePropsMap[selectedComponentId];
 
-  const deleteComponent = () => {
-    console.log('prop-editor.js deleteComponent: entered');
+  const deleteComponent = async () => {
+    await context.delete('instancePropsMap.' + selectedComponentId);
+    await context.set('selectedComponentId', '');
   };
 
   return (
