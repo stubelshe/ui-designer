@@ -88,9 +88,11 @@ export default () => {
 
   // Based on https://javascript.info/mouse-drag-and-drop#drag-n-drop-algorithm
   const mouseDown = event => {
+    console.log('ui-designer.js mouseDown: got mousedown');
     event.preventDefault(); // necessary for dragging images
 
     function moveAt(pageX, pageY) {
+      console.log('ui-designer.js mouseDown: got mousemove');
       const x = pageX - shiftX;
       const y = pageY - shiftY;
       if (x < minX || x > maxX || y < minY || y > maxY) return;
@@ -103,6 +105,7 @@ export default () => {
 
     const element = event.target;
     element.onmouseup = () => {
+      console.log('ui-designer.js mouseDown: got mouseup');
       document.removeEventListener('mousemove', onMouseMove);
       element.onmouseup = null;
       const {left, top} = container.style;

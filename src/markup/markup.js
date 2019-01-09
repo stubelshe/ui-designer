@@ -1,9 +1,12 @@
 import {EasyContext} from 'context-easy';
+import marked from 'marked';
 import {string} from 'prop-types';
 import React, {useContext} from 'react';
 
 import {register} from '../library';
 import {getStyles} from '../styles';
+
+import './markup.scss';
 
 const config = {
   backgroundColor: {
@@ -47,7 +50,13 @@ function Markup(props) {
     .map((part, index) => (index % 2 === 0 ? part : context.get(part)));
   const text = parts.join('');
 
-  return <p style={getStyles(props)}>{text}</p>;
+  return (
+    <div
+      className="markup"
+      dangerouslySetInnerHTML={{__html: marked(text)}}
+      style={getStyles(props)}
+    />
+  );
 }
 
 Markup.propTypes = {
