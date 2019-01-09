@@ -68,7 +68,6 @@ export default () => {
 
       const className =
         'container' + (instanceProps.selected ? ' selected' : '');
-      const onClick = isEdit ? () => toggleSelected(componentId) : null;
       const onMouseDown = isEdit ? mouseDown : null;
       const style = {left: properties.left, top: properties.top};
       return (
@@ -77,7 +76,6 @@ export default () => {
           className={className}
           id={componentId}
           key={componentId}
-          onClick={onClick}
           onMouseDown={onMouseDown}
           style={style}
         >
@@ -89,6 +87,7 @@ export default () => {
 
   // Based on https://javascript.info/mouse-drag-and-drop#drag-n-drop-algorithm
   const mouseDown = event => {
+    const downTimestamp = event.timeStamp;
     event.preventDefault(); // necessary for dragging images
 
     const removeMouseMoveListener = () =>
@@ -108,7 +107,13 @@ export default () => {
     document.addEventListener('mousemove', onMouseMove);
 
     const element = event.target;
-    element.onmouseup = () => {
+    element.onmouseup = event => {
+      // If the mousedown and mouseup events were close together,
+      // toggle whether the component is selected.
+      const upTimestamp = event.timeStamp;
+      const deltaTime = upTimestamp - downTimestamp;
+      if (deltaTime < 300) toggleSelected(container.id);
+
       document.removeEventListener('mousemove', onMouseMove);
       middle.removeEventListener('mouseout', removeMouseMoveListener);
       element.onmouseup = null;
