@@ -32,7 +32,7 @@ export default () => {
   };
 
   const editPageName = async () => {
-    await context.transform('editingPageName', editing => !editing);
+    await context.toggle('editingPageName');
     await context.set('newPageName', selectedPage);
   };
 
