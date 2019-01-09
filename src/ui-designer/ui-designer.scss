@@ -62,12 +62,25 @@
       margin-left: $spacing;
     }
 
-    .page {
-      color: #5b6770;
-      font-size: 20px;
-      font-style: italic;
-      font-weight: 100;
-      line-height: 28px;
+    .page-area {
+      display: flex;
+      align-items: center;
+
+      button {
+        background-color: transparent;
+        border: none;
+        font-size: 20px;
+        padding: 0;
+      }
+
+      .page {
+        color: #5b6770;
+        display: inline-block;
+        font-size: 20px;
+        font-style: italic;
+        font-weight: 100;
+        line-height: 28px;
+      }
     }
 
     select {

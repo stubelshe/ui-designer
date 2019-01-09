@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
-import {EasyContext, Select} from 'context-easy';
+import {EasyContext, Input, Select} from 'context-easy';
 import React, {useContext} from 'react';
 import {
   getComponent,
@@ -24,6 +24,7 @@ export default () => {
   const context = useContext(EasyContext);
   const {
     classPropsMap,
+    editingPageName,
     instancePropsMap,
     lastComponentId,
     mode,
@@ -52,6 +53,11 @@ export default () => {
     const newPropsMap = {...instancePropsMap, [componentId]: properties};
     await context.set('instancePropsMap', newPropsMap);
     toggleSelected(componentId);
+  };
+
+  const editPageName = async () => {
+    await context.transform('editingPageName', editing => !editing);
+    await context.set('newPageName', selectedPage);
   };
 
   const getComponents = instancePropsMap => {
@@ -176,7 +182,16 @@ export default () => {
         <div className="middle">
           {isEdit && (
             <section className="component-select">
-              <div className="page">{selectedPage}</div>
+              <div className="page-area">
+                <div className="page">
+                  {editingPageName ? (
+                    <Input path="newPageName" />
+                  ) : (
+                    selectedPage
+                  )}
+                </div>
+                <button onClick={editPageName}>&#x270E;</button>
+              </div>
               <div className="selector">
                 <Select path="selectedComponentName">
                   <option value="" />

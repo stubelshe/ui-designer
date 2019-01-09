@@ -5,9 +5,11 @@ import './App.scss';
 
 const initialState = {
   classPropsMap: {},
+  editingPageName: false,
   instancePropsMap: {},
   lastComponentId: 0,
   mode: 'Edit',
+  newPageName: '',
   pageName: '',
   pages: {},
   propScope: 'instance',
