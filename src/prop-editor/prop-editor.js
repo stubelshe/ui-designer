@@ -157,7 +157,7 @@ function PropEditor({config}) {
       {context.propScope === 'instance' && (
         <div>
           <button
-            className="clear large"
+            className="large"
             onClick={() =>
               clearInstanceProperties(context, selectedComponentId)
             }
