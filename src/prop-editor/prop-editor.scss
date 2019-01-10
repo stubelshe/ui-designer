@@ -1,9 +1,9 @@
 @import '../share.scss';
 
 .prop-editor {
-  background-color: #f4f4f4;
-  border-left: 1px solid #e7e5e0;
-  padding: 30px $spacing $spacing $spacing;
+  background-color: $gray1;
+  border-left: 1px solid $gray2;
+  padding: 31px $spacing $spacing $spacing;
   width: 200px;
 
   .component-name {
@@ -28,28 +28,29 @@
   }
 
   .prop-scope-row {
-    border-bottom: solid #ccc 1px;
+    border-bottom: solid $gray3 1px;
     display: flex;
     justify-content: space-between;
     margin: 0 (-$spacing) ($spacing * 2) (-$spacing);
     padding: 0 10px;
+
     label {
-      color: #5b6770;
+      color: $gray4;
       font-size: 15px;
+      line-height: 26px;
     }
 
     .toggle-buttons {
       button {
-        border: 1px solid #cccccc;
-        border-bottom: none;
+        border: 1px solid $gray3;
         border-radius: 4px 4px 0 0;
         font-size: 13px;
         padding: $spacing/2 $spacing * 1.5;
 
         &.selected {
-          background-color: #f4f4f4;
-          border-bottom: 1px solid #f4f4f4;
-          color: #5b6770;
+          background-color: $gray1;
+          border-bottom: 1px solid $gray1;
+          color: $gray4;
         }
       }
     }
@@ -73,7 +74,7 @@
     }
 
     select {
-      border: solid lightgray 1px;
+      border: solid $gray2 1px;
       font-size: 11px;
       height: 23px;
       min-width: 150px;

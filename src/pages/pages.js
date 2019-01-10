@@ -62,7 +62,7 @@ export default () => {
         <form onSubmit={handleSubmit}>
           <Input path="pageName" placeholder="Page Name" />
           <button className="add-btn" onClick={addPage}>
-            +
+            &#43;
           </button>
         </form>
       </div>

@@ -7,7 +7,7 @@
   width: 100vw;
 
   header {
-    background-color: #f4f4f4;
+    background-color: $gray1;
     box-shadow: 0 3px 3px #ddd;
     display: flex;
     justify-content: space-between;
@@ -16,18 +16,18 @@
     z-index: 0;
 
     button {
-      background-color: #cccccc;
+      background-color: $gray3;
       border: none;
       margin-left: $spacing;
 
       &.selected {
-        background-color: #5b6770;
+        background-color: $gray4;
         color: white;
       }
     }
 
     .logo {
-      height: 30px;
+      width: 125px;
     }
   }
 
@@ -43,10 +43,10 @@
     }
 
     &.edit .container {
-      outline: solid #e7e5e0 1px;
+      outline: solid $gray2 1px;
 
       &.selected {
-        outline: solid #ff7e00 3px;
+        outline: solid $primary-orange 3px;
       }
     }
   }

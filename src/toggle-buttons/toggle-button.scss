@@ -3,21 +3,23 @@
 .toggle-buttons {
   display: inline-block;
   button {
-    border: 2px solid #5b6770;
-    color: #5b6770;
+    border: 2px solid $gray4;
+    color: $gray4;
+    margin-bottom: -1px;
 
     &:hover {
-      background-color: #cacaca;
-      color: #5b6770;
+      background-color: $gray3;
+      color: $gray4;
+    }
+
+    &:nth-child(2) {
+      margin-left: $spacing;
     }
 
     &.selected {
-      background-color: #5b6770;
-      border: solid 2px #5b6770;
-      color: white;
 
       &:hover {
-        background-color: #3a3a3a;
+        background-color: $gray5;
         color: white;
       }
     }

@@ -61,27 +61,27 @@
     }
 
     &.selected {
-      background-color: #ff7e00;
+      background-color: $primary-orange;
       color: white;
 
       &:hover {
-        background-color: #ff7e00;
+        background-color: $primary-orange;
       }
 
       .delete-btn {
         background-color: white;
-        color: #ff7e00;
+        color: $primary-orange;
       }
     }
 
     .delete-btn {
-      background-color: #ff7e00;
+      background-color: $primary-orange;
       border-radius: 20px;
       border: none;
       color: white;
       cursor: pointer;
       display: none;
-      font-size: 14px;
+      font-size: 12px;
       height: 18px;
       line-height: 0;
       margin-top: -10px;

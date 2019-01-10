@@ -7,23 +7,23 @@ body {
 
 button {
   background-color: white;
-  border: 2px solid #ff7e00;
+  border: 2px solid $primary-orange;
   border-radius: 4px;
-  color: #ff7e00;
+  color: $primary-orange;
   font-size: 11px;
   font-weight: bold;
   padding: 5px $spacing;
   transition: all 0.2s ease-in-out;
 
   &:disabled {
-    background-color: lightgray;
-    border: 2px solid lightgray;
+    background-color: $gray2;
+    border: 2px solid $gray2;
     color: white;
   }
 
   &:hover {
-    background-color: #ff7e00;
-    border: 2px solid #ff7e00;
+    background-color: $primary-orange;
+    border: 2px solid $primary-orange;
     color: white;
   }
 
@@ -35,9 +35,8 @@ button {
 
 input,
 textarea {
-  border: solid lightgray 1px;
+  border: solid $gray2 1px;
   border-radius: 4px;
-  height: 18px;
   padding: 4px;
 }
 

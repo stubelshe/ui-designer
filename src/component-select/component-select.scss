@@ -5,7 +5,7 @@
   justify-content: space-between;
   align-items: center;
 
-  border-bottom: solid #e7e5e0 1px;
+  border-bottom: solid $gray2 1px;
   padding: $spacing * 1.5 $spacing * 2;
 
   button {
@@ -28,7 +28,7 @@
     }
 
     .page {
-      color: #5b6770;
+      color: $gray4;
       display: inline-block;
       font-size: 20px;
       font-style: italic;
@@ -41,6 +41,6 @@
     font-size: 12px;
     height: 28px;
     min-width: 150px;
-    border: solid lightgray 1px;
+    border: solid $gray2 1px;
   }
 }
