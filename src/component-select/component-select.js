@@ -18,7 +18,7 @@ export default () => {
 
   const addComponent = async () => {
     const componentId = 'c' + (lastComponentId + 1);
-    await context.increment('lastComponentId');
+    context.increment('lastComponentId');
 
     const properties = {
       componentId,
@@ -27,13 +27,13 @@ export default () => {
     };
 
     const newPropsMap = {...instancePropsMap, [componentId]: properties};
-    await context.set('instancePropsMap', newPropsMap);
+    context.set('instancePropsMap', newPropsMap);
     toggleSelected(context, componentId);
   };
 
   const editPageName = async () => {
-    await context.toggle('editingPageName');
-    await context.set('newPageName', selectedPage);
+    context.toggle('editingPageName');
+    context.set('newPageName', selectedPage);
   };
 
   const savePageName = async event => {
@@ -43,12 +43,12 @@ export default () => {
     if (pages[newPage]) {
       console.error('ui-designer.js savePageName: already exists');
     } else {
-      await context.set('pages.' + newPage, pages[selectedPage]);
-      await context.delete('pages.' + selectedPage);
-      await context.set('selectedPage', newPage);
+      context.set('pages.' + newPage, pages[selectedPage]);
+      context.delete('pages.' + selectedPage);
+      context.set('selectedPage', newPage);
     }
 
-    await context.set('editingPageName', false);
+    context.set('editingPageName', false);
   };
 
   const componentNames = getComponentNames();

@@ -17,26 +17,23 @@ export default () => {
   const addPage = async () => {
     // Add a new page.
     const newPage = {name: pageName};
-    await context.transform('pages', pages => ({
+    context.transform('pages', pages => ({
       ...pages,
       [pageName]: newPage
     }));
 
-    await context.set('selectedPage', pageName);
+    context.set('selectedPage', pageName);
     context.set('pageName', '');
   };
 
   const clearSelection = async () => {
-    await context.set(
-      `instancePropsMap.${selectedComponentId}.selected`,
-      false
-    );
-    await context.set('selectedComponentId', 0);
+    context.set(`instancePropsMap.${selectedComponentId}.selected`, false);
+    context.set('selectedComponentId', 0);
   };
 
   const deletePage = async name => {
     // Delete all the components on the current page.
-    await context.transform('instancePropsMap', instancePropsMap => {
+    context.transform('instancePropsMap', instancePropsMap => {
       const ids = Object.keys(instancePropsMap);
       return ids.reduce((map, id) => {
         const properties = instancePropsMap[id];
@@ -47,7 +44,7 @@ export default () => {
     });
 
     // Delete the page.
-    await context.delete('pages.' + name);
+    context.delete('pages.' + name);
     clearSelection();
   };
 

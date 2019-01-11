@@ -37,7 +37,7 @@ function configRow(context, component, key, properties) {
       propScope === 'class' ? component.componentName : component.componentId;
     const path = `${propScope}PropsMap.${id}.${key}`;
     const value = getEventValue(type, event);
-    await context.set(path, value);
+    context.set(path, value);
   };
 
   let input;
@@ -142,8 +142,8 @@ function PropEditor({config}) {
   const selectedComponent = instancePropsMap[selectedComponentId];
 
   const deleteComponent = async () => {
-    await context.delete('instancePropsMap.' + selectedComponentId);
-    await context.set('selectedComponentId', '');
+    context.delete('instancePropsMap.' + selectedComponentId);
+    context.set('selectedComponentId', '');
   };
 
   return (

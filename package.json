@@ -18,7 +18,7 @@
     "not op_mini all"
   ],
   "dependencies": {
-    "context-easy": "^0.9.0",
+    "context-easy": "^0.9.5",
     "date-fns": "^1.30.1",
     "marked": "^0.6.0",
     "mdx.macro": "^0.2.7",
