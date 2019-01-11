@@ -59,7 +59,7 @@ export default () => {
         <form onSubmit={handleSubmit}>
           <Input path="pageName" placeholder="Page Name" />
           <button className="add-btn" onClick={addPage}>
-            &#43;
+            <i class="fas fa-plus"></i>
           </button>
         </form>
       </div>
@@ -71,7 +71,7 @@ export default () => {
         >
           <span>{name}</span>
           <button className="delete-btn" onClick={() => deletePage(name)}>
-            &times;
+            <i class="fas fa-times"></i>
           </button>
         </div>
       ))}

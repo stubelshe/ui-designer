@@ -155,17 +155,17 @@ function PropEditor({config}) {
       <div className="component-name">{selectedComponent.componentName}</div>
       {keys.map(key => configRow(context, selectedComponent, key, config[key]))}
       {context.propScope === 'instance' && (
-        <div>
+        <div className="prop-controls">
           <button
-            className="large"
+            className="reset large"
             onClick={() =>
               clearInstanceProperties(context, selectedComponentId)
             }
           >
-            Clear Instance Properties
+            Reset
           </button>
-          <button className="delete" onClick={deleteComponent}>
-            &#x1f5d1;
+          <button className="delete large" onClick={deleteComponent}>
+            <i class="fas fa-trash"></i>
           </button>
         </div>
       )}
