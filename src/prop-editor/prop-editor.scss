@@ -7,20 +7,21 @@
   width: 200px;
 
   .component-name {
+    border-bottom: $gray3 1px solid;
     font-weight: bold;
     margin-bottom: $spacing;
     padding-bottom: $spacing;
-    border-bottom: $gray3 1px solid;
   }
 
   .reset {
     width: calc(100% - 55px);
   }
   .delete {
-    width: 45px;
-    margin-left: $spacing;
     border-color: $gray4;
     color: $gray4;
+    margin-left: $spacing;
+    width: 45px;
+
     &:hover {
       background-color: $gray4;
       color: white;
@@ -89,6 +90,6 @@
     }
   }
   .prop-controls {
-    margin-top: $spacing*3;
+    margin-top: $spacing * 3;
   }
 }

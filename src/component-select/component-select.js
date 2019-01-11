@@ -68,7 +68,9 @@ export default () => {
           ) : (
             <>
               <span>{selectedPage}</span>
-              <button className="edit-page-name" onClick={editPageName}><i class="fas fa-pen"></i></button>
+              <button className="edit-page-name" onClick={editPageName}>
+                <i className="fas fa-pen" />
+              </button>
             </>
           )}
         </div>

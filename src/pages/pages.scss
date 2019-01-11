@@ -19,17 +19,17 @@
   .new-page {
     margin-bottom: $spacing * 1.5;
 
-    form {
-      display: flex;
-      align-items: center;
-    }
-
     .add-btn {
       font-size: 14px;
       height: 28px;
-      width: 28px;
       line-height: 26px;
       padding: 0;
+      width: 28px;
+    }
+
+    form {
+      display: flex;
+      align-items: center;
     }
 
     input[type='text'] {

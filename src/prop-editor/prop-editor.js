@@ -32,7 +32,7 @@ function configRow(context, component, key, properties) {
   }
   if (value === undefined) value = defaultValue;
 
-  const handleChange = async event => {
+  const handleChange = event => {
     const id =
       propScope === 'class' ? component.componentName : component.componentId;
     const path = `${propScope}PropsMap.${id}.${key}`;
@@ -165,7 +165,7 @@ function PropEditor({config}) {
             Reset
           </button>
           <button className="delete large" onClick={deleteComponent}>
-            <i class="fas fa-trash"></i>
+            <i className="fas fa-trash" />
           </button>
         </div>
       )}
