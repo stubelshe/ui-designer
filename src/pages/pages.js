@@ -3,6 +3,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
 import {EasyContext, Input} from 'context-easy';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useContext} from 'react';
 import './pages.scss';
 
@@ -14,7 +15,7 @@ export default () => {
   const {pageName, pages, selectedComponentId, selectedPage} = context;
   const pageNames = Object.keys(pages).sort();
 
-  const addPage = async () => {
+  const addPage = () => {
     // Add a new page.
     const newPage = {name: pageName};
     context.transform('pages', pages => ({
@@ -26,12 +27,12 @@ export default () => {
     context.set('pageName', '');
   };
 
-  const clearSelection = async () => {
+  const clearSelection = () => {
     context.set(`instancePropsMap.${selectedComponentId}.selected`, false);
     context.set('selectedComponentId', 0);
   };
 
-  const deletePage = async name => {
+  const deletePage = name => {
     // Delete all the components on the current page.
     context.transform('instancePropsMap', instancePropsMap => {
       const ids = Object.keys(instancePropsMap);
@@ -59,7 +60,7 @@ export default () => {
         <form onSubmit={handleSubmit}>
           <Input path="pageName" placeholder="Page Name" />
           <button className="add-btn" onClick={addPage}>
-            <i className="fas fa-plus" />
+            <FontAwesomeIcon icon="plus" />
           </button>
         </form>
       </div>
@@ -71,7 +72,7 @@ export default () => {
         >
           <span>{name}</span>
           <button className="delete-btn" onClick={() => deletePage(name)}>
-            <i className="fas fa-times" />
+            <FontAwesomeIcon icon="times" />
           </button>
         </div>
       ))}

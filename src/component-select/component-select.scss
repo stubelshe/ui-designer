@@ -26,7 +26,8 @@
       }
     }
 
-    .page, .page input[type='text'] {
+    .page,
+    .page input[type='text'] {
       color: $gray4;
       display: inline-block;
       font-size: 20px;

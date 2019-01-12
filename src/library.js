@@ -48,7 +48,7 @@ export function register(component, config) {
   }, {});
 }
 
-export async function toggleSelected(context, componentId) {
+export function toggleSelected(context, componentId) {
   const {selectedComponentId} = context;
   if (selectedComponentId) {
     context.set(`instancePropsMap.${selectedComponentId}.selected`, false);

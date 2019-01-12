@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 import {EasyContext} from 'context-easy';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {object} from 'prop-types';
 import React, {useContext} from 'react';
 
@@ -141,7 +142,7 @@ function PropEditor({config}) {
   const {instancePropsMap, selectedComponentId} = context;
   const selectedComponent = instancePropsMap[selectedComponentId];
 
-  const deleteComponent = async () => {
+  const deleteComponent = () => {
     context.delete('instancePropsMap.' + selectedComponentId);
     context.set('selectedComponentId', '');
   };
@@ -165,7 +166,7 @@ function PropEditor({config}) {
             Reset
           </button>
           <button className="delete large" onClick={deleteComponent}>
-            <i className="fas fa-trash" />
+            <FontAwesomeIcon icon="trash" />
           </button>
         </div>
       )}

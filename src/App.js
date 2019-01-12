@@ -1,7 +1,20 @@
+import {
+  faIgloo,
+  faPen,
+  faPlus,
+  faTrash
+} from '@fortawesome/free-solid-svg-icons';
+import {library} from '@fortawesome/fontawesome-svg-core';
 import {EasyProvider} from 'context-easy';
 import React, {Component} from 'react';
 import UIDesigner from './ui-designer/ui-designer';
+
 import './App.scss';
+
+library.add(faIgloo);
+library.add(faPen);
+library.add(faPlus);
+library.add(faTrash);
 
 const initialState = {
   classPropsMap: {},

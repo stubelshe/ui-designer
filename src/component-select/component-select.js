@@ -1,4 +1,5 @@
 import {EasyContext, Input, Select} from 'context-easy';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useContext} from 'react';
 
 import {getComponentNames, toggleSelected} from '../library';
@@ -16,7 +17,7 @@ export default () => {
     selectedPage
   } = context;
 
-  const addComponent = async () => {
+  const addComponent = () => {
     const componentId = 'c' + (lastComponentId + 1);
     context.increment('lastComponentId');
 
@@ -31,12 +32,12 @@ export default () => {
     toggleSelected(context, componentId);
   };
 
-  const editPageName = async () => {
+  const editPageName = () => {
     context.toggle('editingPageName');
     context.set('newPageName', selectedPage);
   };
 
-  const savePageName = async event => {
+  const savePageName = event => {
     if (event.key !== 'Enter') return;
 
     const newPage = event.target.value;
@@ -69,7 +70,7 @@ export default () => {
             <>
               <span>{selectedPage}</span>
               <button className="edit-page-name" onClick={editPageName}>
-                <i className="fas fa-pen" />
+                <FontAwesomeIcon icon="pen" />
               </button>
             </>
           )}
