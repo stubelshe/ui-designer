@@ -36,7 +36,7 @@ const initialState = {
 class App extends Component {
   render() {
     return (
-      <EasyProvider initialState={initialState} log validate>
+      <EasyProvider initialState={initialState} validate>
         <div className="App">
           <UIDesigner />
         </div>

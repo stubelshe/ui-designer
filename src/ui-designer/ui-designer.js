@@ -60,7 +60,7 @@ export default () => {
           i={componentId}
           x={index}
           y={0}
-          w={1}
+          w={2}
           h={1}
           onClick={() => toggleSelected(context, componentId)}
         >
@@ -69,6 +69,27 @@ export default () => {
       );
     });
   };
+
+  function getLayout(page) {
+    const layoutKey = `ui-designer/${page}/layout`;
+    const json = sessionStorage.getItem(layoutKey);
+    const layout = json ? JSON.parse(json) : [];
+    layout.page = page;
+    return layout;
+  }
+
+  function saveLayout(page, layout) {
+    // Don't save the layout if we are changing the current page.
+    // react-grid-layout really shouldn't
+    // trigger onLayoutChange when this happens!
+    if (sessionStorage.getItem('page-changed')) {
+      sessionStorage.removeItem('page-changed');
+      return;
+    }
+
+    const layoutKey = `ui-designer/${page}/layout`;
+    sessionStorage.setItem(layoutKey, JSON.stringify(layout));
+  }
 
   /*
   // Based on https://javascript.info/mouse-drag-and-drop#drag-n-drop-algorithm
@@ -135,6 +156,8 @@ export default () => {
   };
   */
 
+  const layout = getLayout(selectedPage);
+
   return (
     <div className="ui-designer">
       <header>
@@ -149,7 +172,9 @@ export default () => {
             autoSize={false}
             className={'layout component-display' + (isEdit ? ' edit' : '')}
             cols={12}
-            rowHeight={50}
+            layout={layout}
+            onLayoutChange={layout => saveLayout(selectedPage, layout)}
+            rowHeight={41}
             width={1000}
           >
             {getComponents(instancePropsMap)}
