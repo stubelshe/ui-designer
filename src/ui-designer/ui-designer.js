@@ -70,15 +70,14 @@ export default () => {
     });
   };
 
+  const layoutKey = `ui-designer/${selectedPage}/layout`;
+
   function getLayout(page) {
-    const layoutKey = `ui-designer/${page}/layout`;
     const json = sessionStorage.getItem(layoutKey);
-    const layout = json ? JSON.parse(json) : [];
-    layout.page = page;
-    return layout;
+    return json ? JSON.parse(json) : [];
   }
 
-  function saveLayout(page, layout) {
+  function saveLayout(layout) {
     // Don't save the layout if we are changing the current page.
     // react-grid-layout really shouldn't
     // trigger onLayoutChange when this happens!
@@ -87,74 +86,8 @@ export default () => {
       return;
     }
 
-    const layoutKey = `ui-designer/${page}/layout`;
     sessionStorage.setItem(layoutKey, JSON.stringify(layout));
   }
-
-  /*
-  // Based on https://javascript.info/mouse-drag-and-drop#drag-n-drop-algorithm
-  const mouseDown = event => {
-    const downTimestamp = event.timeStamp;
-    event.preventDefault(); // necessary for dragging images
-
-    const removeMouseMoveListener = () =>
-      document.removeEventListener('mousemove', onMouseMove);
-    middle.addEventListener('mouseout', removeMouseMoveListener);
-
-    function moveAt(pageX, pageY) {
-      const x = pageX - shiftX;
-      const y = pageY - shiftY;
-      if (x < minX || x > maxX || y < minY || y > maxY) return;
-
-      style.left = x + 'px';
-      style.top = y + 'px';
-    }
-
-    const onMouseMove = event => moveAt(event.pageX, event.pageY);
-    document.addEventListener('mousemove', onMouseMove);
-
-    const element = event.target;
-    element.onmouseup = event => {
-      // If the mousedown and mouseup events were close together,
-      // toggle whether the component is selected.
-      const upTimestamp = event.timeStamp;
-      const deltaTime = upTimestamp - downTimestamp;
-      if (deltaTime < 300) toggleSelected(context, container.id);
-
-      document.removeEventListener('mousemove', onMouseMove);
-      middle.removeEventListener('mouseout', removeMouseMoveListener);
-      element.onmouseup = null;
-
-      const {left, top} = container.style;
-      context.transform('instancePropsMap.' + container.id, properties => ({
-        ...properties,
-        left,
-        top
-      }));
-    };
-
-    // Find the container element.
-    let container = element;
-    while (true) {
-      const classAttr = container.getAttribute('class');
-      if (classAttr && classAttr.split(' ').includes('container')) break;
-      container = container.parentElement;
-    }
-
-    const {style} = container;
-    const page = container.parentElement;
-    const pageRect = page.getBoundingClientRect();
-    const rect = container.getBoundingClientRect();
-
-    const minX = pageRect.x;
-    const minY = pageRect.y;
-    const maxX = minX + pageRect.width - rect.width;
-    const maxY = minY + pageRect.height - rect.height;
-
-    const shiftX = event.pageX - rect.left;
-    const shiftY = event.pageY - rect.top;
-  };
-  */
 
   const layout = getLayout(selectedPage);
 
@@ -173,7 +106,7 @@ export default () => {
             className={'layout component-display' + (isEdit ? ' edit' : '')}
             cols={12}
             layout={layout}
-            onLayoutChange={layout => saveLayout(selectedPage, layout)}
+            onLayoutChange={saveLayout}
             rowHeight={41}
             width={1000}
           >
