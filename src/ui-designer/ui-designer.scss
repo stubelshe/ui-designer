@@ -34,14 +34,6 @@
   .component-display {
     flex-grow: 1;
 
-    // The components
-    & > * {
-      display: inline-block;
-      position: absolute;
-      left: 225px; // initial position
-      top: 130px; // initial position
-    }
-
     &.edit .container {
       outline: solid $gray2 1px;
 

@@ -4,6 +4,7 @@
 
 import {EasyContext} from 'context-easy';
 import React, {useContext} from 'react';
+import GridLayout from 'react-grid-layout';
 
 import '../components';
 import {
@@ -31,7 +32,6 @@ export default () => {
     selectedPage
   } = context;
 
-  const middle = document.querySelector('.middle');
   const isEdit = mode === 'Edit';
   const selectedComponent = instancePropsMap[selectedComponentId];
   const config = selectedComponent
@@ -44,25 +44,25 @@ export default () => {
       id => instancePropsMap[id].onPage === selectedPage
     );
 
-    return componentIds.map(componentId => {
+    return componentIds.map((componentId, index) => {
       const instanceProps = instancePropsMap[componentId];
       const classProps = classPropsMap[instanceProps.componentName];
       const properties = getProperties(classProps, instanceProps);
       const component = getComponent(properties);
-      //if (!component) return null;
 
       const className =
         'container' + (instanceProps.selected ? ' selected' : '');
-      const onMouseDown = isEdit ? mouseDown : null;
-      const style = {left: properties.left, top: properties.top};
       return (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events
         <div
           className={className}
-          id={componentId}
           key={componentId}
-          onMouseDown={onMouseDown}
-          style={style}
+          i={componentId}
+          x={index}
+          y={0}
+          w={1}
+          h={1}
+          onClick={() => toggleSelected(context, componentId)}
         >
           {component}
         </div>
@@ -70,6 +70,7 @@ export default () => {
     });
   };
 
+  /*
   // Based on https://javascript.info/mouse-drag-and-drop#drag-n-drop-algorithm
   const mouseDown = event => {
     const downTimestamp = event.timeStamp;
@@ -132,6 +133,7 @@ export default () => {
     const shiftX = event.pageX - rect.left;
     const shiftY = event.pageY - rect.top;
   };
+  */
 
   return (
     <div className="ui-designer">
@@ -143,9 +145,15 @@ export default () => {
         {isEdit && <Pages />}
         <div className="middle">
           {isEdit && <ComponentSelect />}
-          <section className={'component-display' + (isEdit ? ' edit' : '')}>
+          <GridLayout
+            autoSize={false}
+            className={'layout component-display' + (isEdit ? ' edit' : '')}
+            cols={12}
+            rowHeight={50}
+            width={1000}
+          >
             {getComponents(instancePropsMap)}
-          </section>
+          </GridLayout>
         </div>
         {isEdit && selectedComponentId ? <PropEditor config={config} /> : null}
       </section>

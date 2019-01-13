@@ -1,7 +1,7 @@
 import {
-  faIgloo,
   faPen,
   faPlus,
+  faTimes,
   faTrash
 } from '@fortawesome/free-solid-svg-icons';
 import {library} from '@fortawesome/fontawesome-svg-core';
@@ -9,11 +9,13 @@ import {EasyProvider} from 'context-easy';
 import React, {Component} from 'react';
 import UIDesigner from './ui-designer/ui-designer';
 
+import 'react-grid-layout/css/styles.css';
+import 'react-resizable/css/styles.css';
 import './App.scss';
 
-library.add(faIgloo);
 library.add(faPen);
 library.add(faPlus);
+library.add(faTimes);
 library.add(faTrash);
 
 const initialState = {
