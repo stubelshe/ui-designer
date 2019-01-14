@@ -13,9 +13,6 @@
     padding-bottom: $spacing;
   }
 
-  .reset {
-    width: calc(100% - 55px);
-  }
   .delete {
     border-color: $gray4;
     color: $gray4;
@@ -26,6 +23,10 @@
       background-color: $gray4;
       color: white;
     }
+  }
+
+  .prop-controls {
+    margin-top: $spacing * 3;
   }
 
   .prop-scope {
@@ -64,6 +65,10 @@
       }
     }
   }
+  
+  .reset {
+    width: calc(100% - 55px);
+  }
 
   .row {
     margin-bottom: $spacing;
@@ -88,8 +93,5 @@
       height: 23px;
       min-width: 150px;
     }
-  }
-  .prop-controls {
-    margin-top: $spacing * 3;
   }
 }
