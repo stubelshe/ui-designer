@@ -25,10 +25,6 @@
     }
   }
 
-  .reset {
-    width: calc(100% - 55px);
-  }
-
   .prop-controls {
     margin-top: $spacing * 3;
   }
@@ -68,6 +64,10 @@
         }
       }
     }
+  }
+  
+  .reset {
+    width: calc(100% - 55px);
   }
 
   .row {
