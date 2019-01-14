@@ -6,6 +6,18 @@
   height: 100vh;
   width: 100vw;
 
+  .component-display {
+    flex-grow: 1;
+
+    &.edit .container {
+      outline: solid $gray2 1px;
+
+      &.selected {
+        outline: solid $primary-orange 3px;
+      }
+    }
+  }
+
   header {
     background-color: $gray1;
     box-shadow: 0 3px 3px #ddd;
@@ -28,18 +40,6 @@
 
     .logo {
       width: 125px;
-    }
-  }
-
-  .component-display {
-    flex-grow: 1;
-
-    &.edit .container {
-      outline: solid $gray2 1px;
-
-      &.selected {
-        outline: solid $primary-orange 3px;
-      }
     }
   }
 
