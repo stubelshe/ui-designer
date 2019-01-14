@@ -1,4 +1,4 @@
-import {number, string} from 'prop-types';
+import {string} from 'prop-types';
 import React from 'react';
 import {register} from '../library';
 import {getStyles} from '../styles';
@@ -17,25 +17,18 @@ const config = {
   url: {
     type: 'text',
     defaultValue: 'http://localhost:3000/whippet.jpg'
-  },
-  zoom: {
-    type: 'number',
-    defaultValue: 100
   }
 };
 
 function Image(props) {
-  const {alt, url, zoom} = props;
+  const {alt, url} = props;
   const style = getStyles(props);
-  style.height = zoom + '%';
-  style.width = zoom + '%';
   return <img className="image" alt={alt} src={url} style={style} />;
 }
 
 Image.propTypes = {
   alt: string.isRequired,
-  url: string.isRequired,
-  zoom: number.isRequired
+  url: string.isRequired
 };
 
 register(Image, config, 3, 3);
