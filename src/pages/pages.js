@@ -4,6 +4,7 @@
 
 import {EasyContext, Input} from 'context-easy';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {selectPage} from '../library';
 import React, {useContext} from 'react';
 import './pages.scss';
 
@@ -23,7 +24,8 @@ export default () => {
       [pageName]: newPage
     }));
 
-    context.set('selectedPage', pageName);
+    selectPage(context, pageName);
+    //clearSelection();
     context.set('pageName', '');
   };
 
@@ -32,30 +34,21 @@ export default () => {
     context.set('selectedComponentId', 0);
   };
 
-  const deletePage = name => {
+  const deletePage = pageName => {
     // Delete all the components on the current page.
     context.transform('instancePropsMap', instancePropsMap => {
       const ids = Object.keys(instancePropsMap);
       return ids.reduce((map, id) => {
         const properties = instancePropsMap[id];
         // Keep components not on the page being deleted.
-        if (properties.page !== name) map[id] = properties;
+        if (properties.page !== pageName) map[id] = properties;
         return map;
       }, {});
     });
 
     // Delete the page.
-    context.delete('pages.' + name);
+    context.delete('pages.' + pageName);
     clearSelection();
-  };
-
-  const selectPage = async name => {
-    // ui-designer.js checked for this in saveLayout.
-    sessionStorage.setItem('page-changed', true);
-
-    await clearSelection();
-
-    context.set('selectedPage', name);
   };
 
   return (
@@ -72,7 +65,7 @@ export default () => {
         <div
           className={'page' + (name === selectedPage ? ' selected' : '')}
           key={'page' + index}
-          onClick={() => selectPage(name)}
+          onClick={() => selectPage(context, name)}
         >
           <span>{name}</span>
           <button className="delete-btn" onClick={() => deletePage(name)}>

@@ -68,3 +68,10 @@ export function toggleSelected(context, componentId) {
   }
   context.set(`selectedComponentId`, different ? componentId : '');
 }
+
+export function selectPage(context, pageName) {
+  // ui-designer.js checks for this in saveLayout.
+  sessionStorage.setItem('page-changed', true);
+
+  context.set('selectedPage', pageName);
+}

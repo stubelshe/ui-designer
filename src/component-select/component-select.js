@@ -2,7 +2,7 @@ import {EasyContext, Input, Select} from 'context-easy';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useContext} from 'react';
 
-import {getComponentNames, toggleSelected} from '../library';
+import {getComponentNames, selectPage, toggleSelected} from '../library';
 
 import './component-select.scss';
 
@@ -46,7 +46,7 @@ export default () => {
     } else {
       context.set('pages.' + newPage, pages[selectedPage]);
       context.delete('pages.' + selectedPage);
-      context.set('selectedPage', newPage);
+      selectPage(context, newPage);
     }
 
     context.set('editingPageName', false);
