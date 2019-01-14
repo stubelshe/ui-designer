@@ -38,4 +38,4 @@ Image.propTypes = {
   zoom: number.isRequired
 };
 
-register(Image, config);
+register(Image, config, 3, 3);

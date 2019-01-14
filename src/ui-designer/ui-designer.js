@@ -52,16 +52,19 @@ export default () => {
 
       const className =
         'container' + (instanceProps.selected ? ' selected' : '');
+      const dataGrid = {
+        i: componentId,
+        x: 0,
+        y: 0,
+        w: properties.defaultCellWidth,
+        h: properties.defaultCellHeight
+      };
       return (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events
         <div
           className={className}
+          data-grid={dataGrid}
           key={componentId}
-          i={componentId}
-          x={index}
-          y={0}
-          w={2}
-          h={1}
           onClick={() => toggleSelected(context, componentId)}
         >
           {component}

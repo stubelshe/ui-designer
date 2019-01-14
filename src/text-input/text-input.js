@@ -26,7 +26,8 @@ const config = {
     type: 'text'
   },
   path: {
-    type: 'text'
+    type: 'text',
+    defaultValue: ''
   }
 };
 
@@ -51,4 +52,4 @@ TextInput.propTypes = {
   path: string.isRequired
 };
 
-register(TextInput, config);
+register(TextInput, config, 3, 1);

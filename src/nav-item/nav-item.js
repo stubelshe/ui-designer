@@ -30,7 +30,8 @@ const config = {
     defaultValue: 18
   },
   goToPage: {
-    type: 'page'
+    type: 'page',
+    defaultValue: ''
   },
   kind: {
     type: 'multipleChoice',
@@ -46,7 +47,9 @@ const config = {
 function NavItem(props) {
   const {goToPage, kind, text} = props;
   const context = useContext(EasyContext);
-  const navigate = () => context.set('selectedPage', goToPage);
+  const navigate = () => {
+    if (context.mode === 'Demo') context.set('selectedPage', goToPage);
+  };
 
   const styles = getStyles(props);
   if (kind === 'link') styles.backgroundColor = 'transparent';
@@ -68,4 +71,4 @@ NavItem.propTypes = {
   text: string.isRequired
 };
 
-register(NavItem, config);
+register(NavItem, config, 2, 1);

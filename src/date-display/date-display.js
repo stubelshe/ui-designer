@@ -44,4 +44,4 @@ DateDisplay.propTypes = {
   format: string.isRequired
 };
 
-register(DateDisplay, config);
+register(DateDisplay, config, 3, 1);

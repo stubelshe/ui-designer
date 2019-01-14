@@ -34,18 +34,27 @@ export function getProperties(classProps = {}, instanceProps = {}) {
   return {...defaults, ...classProps, ...instanceProps};
 }
 
-export function register(component, config) {
+export function register(
+  component,
+  config,
+  defaultCellWidth = 1,
+  defaultCellHeight = 1
+) {
   const {name} = component;
   componentMap[name] = component;
   configMap[name] = config;
 
   // Create an object where keys are property names
   // and values are their default values.
-  defaultsMap[name] = Object.keys(config).reduce((acc, key) => {
+  const defaults = Object.keys(config).reduce((acc, key) => {
     const value = config[key].defaultValue;
     if (value !== undefined) acc[key] = value;
     return acc;
   }, {});
+
+  defaults.defaultCellWidth = defaultCellWidth;
+  defaults.defaultCellHeight = defaultCellHeight;
+  defaultsMap[name] = defaults;
 }
 
 export function toggleSelected(context, componentId) {

@@ -66,4 +66,4 @@ Clock.propTypes = {
   showSeconds: bool
 };
 
-register(Clock, config);
+register(Clock, config, 2, 1);

@@ -55,4 +55,4 @@ Markdown.propTypes = {
   markdown: string.isRequired
 };
 
-register(Markdown, config);
+register(Markdown, config, 4, 2);

@@ -50,10 +50,10 @@ export default () => {
   };
 
   const selectPage = async name => {
-    await clearSelection();
-
     // ui-designer.js checked for this in saveLayout.
     sessionStorage.setItem('page-changed', true);
+
+    await clearSelection();
 
     context.set('selectedPage', name);
   };
