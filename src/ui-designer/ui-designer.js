@@ -4,7 +4,7 @@
 
 import {EasyContext} from 'context-easy';
 import React, {useContext} from 'react';
-import GridLayout from 'react-grid-layout';
+import {Responsive as ResponsiveGridLayout} from 'react-grid-layout';
 
 import '../components';
 import {
@@ -104,17 +104,18 @@ export default () => {
         {isEdit && <Pages />}
         <div className="middle">
           {isEdit && <ComponentSelect />}
-          <GridLayout
+          <ResponsiveGridLayout
             autoSize={false}
+            breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
             className={'layout component-display' + (isEdit ? ' edit' : '')}
-            cols={12}
+            cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}}
             layout={layout}
             onLayoutChange={saveLayout}
             rowHeight={41}
             width={1000}
           >
             {getComponents(instancePropsMap)}
-          </GridLayout>
+          </ResponsiveGridLayout>
         </div>
         {isEdit && selectedComponentId ? <PropEditor config={config} /> : null}
       </section>
