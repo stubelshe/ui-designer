@@ -93,6 +93,7 @@ export default () => {
   }
 
   const layout = getLayout(selectedPage);
+  const layouts = {lg: layout};
 
   return (
     <div className="ui-designer">
@@ -109,7 +110,9 @@ export default () => {
             breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
             className={'layout component-display' + (isEdit ? ' edit' : '')}
             cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}}
-            layout={layout}
+            isDraggable={isEdit}
+            isResizable={isEdit}
+            layouts={layouts}
             onLayoutChange={saveLayout}
             rowHeight={41}
             width={1000}
