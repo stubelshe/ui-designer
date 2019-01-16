@@ -6,6 +6,16 @@
   padding: 31px $spacing $spacing $spacing;
   width: 200px;
 
+  .align-btns {
+    div {
+      margin-top: 10px;
+
+      svg {
+        margin: 5px;
+      }
+    }
+  }
+
   .component-name {
     border-bottom: $gray3 1px solid;
     font-weight: bold;

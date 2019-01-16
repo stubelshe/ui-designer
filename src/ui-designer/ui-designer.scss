@@ -31,11 +31,6 @@
       background-color: $gray3;
       border: none;
       margin-left: $spacing;
-
-      &.selected {
-        background-color: $gray4;
-        color: white;
-      }
     }
 
     .logo {
@@ -51,6 +46,30 @@
       display: flex;
       flex-direction: column;
       flex-grow: 1;
+    }
+  }
+
+  .react-grid-item {
+    display: flex;
+
+    &.horizontal-flex-end {
+      justify-content: flex-end;
+    }
+    &.horizontal-flex-start {
+      justify-content: flex-start;
+    }
+    &.horizontal-space-around{
+      justify-content: center;
+    }
+
+    &.vertical-flex-end {
+      align-items: flex-end;
+    }
+    &.vertical-flex-start {
+      align-items: flex-start;
+    }
+    &.vertical-space-around {
+      align-items: center;
     }
   }
 }

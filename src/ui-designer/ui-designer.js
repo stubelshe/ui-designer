@@ -51,7 +51,9 @@ export default () => {
       const component = getComponent(properties);
 
       const className =
-        'container' + (instanceProps.selected ? ' selected' : '');
+        'container' +
+        (instanceProps.selected ? ' selected ' : ' ') +
+        properties.class;
       const dataGrid = {
         i: componentId,
         x: 0,

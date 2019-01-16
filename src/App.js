@@ -1,4 +1,10 @@
 import {
+  faArrowsAltH,
+  faArrowsAltV,
+  faLongArrowAltDown,
+  faLongArrowAltLeft,
+  faLongArrowAltRight,
+  faLongArrowAltUp,
   faPen,
   faPlus,
   faTimes,
@@ -13,6 +19,12 @@ import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 import './App.scss';
 
+library.add(faArrowsAltH);
+library.add(faArrowsAltV);
+library.add(faLongArrowAltDown);
+library.add(faLongArrowAltLeft);
+library.add(faLongArrowAltRight);
+library.add(faLongArrowAltUp);
 library.add(faPen);
 library.add(faPlus);
 library.add(faTimes);
@@ -36,7 +48,7 @@ const initialState = {
 class App extends Component {
   render() {
     return (
-      <EasyProvider initialState={initialState} validate>
+      <EasyProvider initialState={initialState} log validate>
         <div className="App">
           <UIDesigner />
         </div>

@@ -21,6 +21,11 @@ export function clearInstanceProperties(context, componentId) {
 export function getComponent(properties) {
   const {componentName} = properties;
   const component = componentMap[componentName];
+
+  const {hAlign, vAlign} = properties;
+  delete properties.hAlign;
+  delete properties.vAlign;
+  properties.class = 'horizontal-' + hAlign + ' vertical-' + vAlign;
   return React.createElement(component, properties);
 }
 

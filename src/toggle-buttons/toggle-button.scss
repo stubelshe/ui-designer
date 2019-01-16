@@ -2,6 +2,7 @@
 
 .toggle-buttons {
   display: inline-block;
+
   button {
     border: 2px solid $gray4;
     color: $gray4;
@@ -12,11 +13,14 @@
       color: $gray4;
     }
 
-    &:nth-child(2) {
+    &:not(:first-of-type) {
       margin-left: $spacing;
     }
 
     &.selected {
+      background-color: $gray4;
+      color: white;
+
       &:hover {
         background-color: $gray5;
         color: white;
